@@ -1,39 +1,51 @@
 import { useState } from 'react'
+import { NavLink, Link } from 'react-router-dom'
 
-const links = [
-  { label: 'Home', href: '#home' },
-  { label: 'Team', href: '#team' },
-  { label: 'Apply', href: '#apply' },
-  { label: 'Venture Capital', href: '#our-work' },
-  { label: 'Partners', href: '#partners' },
+const linkList = [
+  { label: 'Home', to: '/' },
+  { label: 'Team', to: '/team' },
+  { label: 'Projects', to: '/projects' },
+  { label: 'Events', to: '/events' },
+  { label: 'Venture Capital', to: '/venture-capital' },
+  { label: 'Partners', to: '/partners' },
+  { label: 'Apply', to: '/apply' },
 ]
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
 
+  const cls = ({ isActive }) =>
+    `relative text-sm font-medium transition-colors duration-200 group ${
+      isActive ? 'text-gold' : 'text-ink hover:text-gold'
+    }`
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-ivory border-b border-gold/20">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
 
-        <a href="#home" className="font-serif text-xl font-bold text-ink tracking-tight">
+        <Link to="/" className="font-serif text-xl font-bold text-ink tracking-tight shrink-0">
           VCPurdue
-        </a>
+        </Link>
 
-        <div className="hidden md:flex items-center gap-8">
-          {links.map(link => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="relative text-sm font-medium text-ink hover:text-gold transition-colors duration-200 group"
-            >
-              {link.label}
-              <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-gold transition-all duration-300 group-hover:w-full" />
-            </a>
+        <div className="hidden lg:flex items-center gap-7">
+          {linkList.map(link => (
+            <NavLink key={link.label} to={link.to} className={cls}>
+              {({ isActive }) => (
+                <>
+                  {link.label}
+                  <span
+                    className={`absolute -bottom-0.5 left-0 h-px bg-gold transition-all duration-300 ${
+                      isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                    }`}
+                  />
+                </>
+              )}
+            </NavLink>
           ))}
         </div>
 
         <button
-          className="md:hidden text-ink p-1"
+          className="lg:hidden text-ink p-1"
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
         >
@@ -48,16 +60,20 @@ export default function Navbar() {
       </div>
 
       {open && (
-        <div className="md:hidden bg-ivory border-t border-gold/20 px-6 py-5 flex flex-col gap-5">
-          {links.map(link => (
-            <a
+        <div className="lg:hidden bg-ivory border-t border-gold/20 px-6 py-5 flex flex-col gap-5">
+          {linkList.map(link => (
+            <NavLink
               key={link.label}
-              href={link.href}
-              className="text-sm font-medium text-ink hover:text-gold transition-colors duration-200"
+              to={link.to}
+              className={({ isActive }) =>
+                `text-sm font-medium transition-colors duration-200 ${
+                  isActive ? 'text-gold' : 'text-ink hover:text-gold'
+                }`
+              }
               onClick={() => setOpen(false)}
             >
               {link.label}
-            </a>
+            </NavLink>
           ))}
         </div>
       )}
