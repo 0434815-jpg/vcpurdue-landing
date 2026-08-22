@@ -9,8 +9,11 @@ export default function Home() {
       {/* ---------- HERO ---------- */}
       <section className="bg-ink min-h-[88vh] flex items-center justify-center text-center px-6">
         <div className="max-w-4xl mx-auto">
+          {/* Official club slogan. The old line ("Where Founders,
+              Investors & Ventures Converge") belongs to an IU club —
+              José flagged it Aug 21. Do not reuse it. */}
           <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6">
-            Where Founders, Investors &amp; Ventures Converge.
+            The Bridge Between Founders, Startups &amp; Investors.
           </h1>
           <p className="text-white/60 text-lg md:text-xl mb-12 max-w-xl mx-auto leading-relaxed">
             Purdue University's student-led venture capital organization.

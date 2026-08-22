@@ -20,7 +20,7 @@ export const executiveBoard = [
     bio: '',
   },
   {
-    name: 'Anshul B',
+    name: 'Anshul Balachandra',
     title: 'Partner, Operations',
     initials: 'AB',
     linkedin: 'https://www.linkedin.com/in/anshu1b/',
@@ -104,7 +104,9 @@ export const advisors = [
 // RESOLVED — José's May 6 question about Founders/Co-Founders.
 // Per the official founding-team graphics:
 //   Founders    — Fabrício d'Almeida, Matthew D. Lynall, José Sándigo
-//   Co-Founders — Hieu Nguyen, Cristobal Muñoz, Giang Nguyen, Nilay Mehta
-// Rather than a duplicate section, this is reflected in each person's
-// title above. Leave this array empty unless you want a separate block.
+//   Co-Founders — Cristobal Muñoz, Giang Nguyen, Nilay Mehta
+//                 (Hieu Nguyen was also a co-founder but left the club
+//                  in Aug 2026 and was removed at José's request)
+// Reflected in each person's title above rather than a duplicate
+// section. Leave this empty unless you want a separate block.
 export const founders = []
