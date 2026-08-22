@@ -10,11 +10,11 @@ export default function Projects() {
         <div className="max-w-3xl mx-auto">
           <p className="text-gold text-sm italic mb-4 tracking-wide">Our Work</p>
           <h1 className="font-serif text-5xl md:text-6xl font-bold text-white mb-6">
-            Real firms. Real mandates.
+            We work for real funds.
           </h1>
           <p className="text-white/55 text-lg leading-relaxed">
-            VCPurdue isn't a class project. Our members run research engagements for
-            working venture funds and present findings directly to their investors.
+            Our members run research engagements for working venture funds and present
+            the findings to their investors.
           </p>
         </div>
       </section>
@@ -90,8 +90,7 @@ export default function Projects() {
               Three engagements this semester.
             </h2>
             <p className="text-white/50 leading-relaxed max-w-xl mx-auto">
-              Every member is placed on a project team working a live mandate with one of
-              our partner firms.
+              Every member joins one of the three project teams.
             </p>
           </div>
 

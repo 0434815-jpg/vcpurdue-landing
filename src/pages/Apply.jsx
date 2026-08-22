@@ -1,36 +1,36 @@
 import ApplyButton from '../components/ApplyButton'
 import { tracks, links, boilerlinkLive } from '../config/site'
 
-// TODO — dates are placeholders until Anshul finalizes the
-// recruiting timeline. Update `steps` below once confirmed.
+// ⚠️ The `when` values stay deliberately vague until José and Anshul
+// confirm the recruiting timeline. Don't state a date we can't keep.
 const steps = [
   {
     step: '01',
-    title: 'Application opens',
-    when: 'First week of classes',
+    title: 'Submit the application',
+    when: 'Open now',
     detail:
-      'Submit the online application with your resume and short responses. No finance background required.',
+      'A short written application with your resume. All majors welcome, and no finance background required.',
   },
   {
     step: '02',
     title: 'Callout & info session',
-    when: 'First two weeks',
+    when: 'First weeks of the semester',
     detail:
-      'Come learn how the club runs, meet the Partners, and hear about the semester’s three project engagements.',
+      'Meet the Partners, hear how the club runs, and get the details on this semester’s three project engagements.',
   },
   {
     step: '03',
-    title: 'Interviews',
-    when: 'Following week',
+    title: 'Interview',
+    when: 'After applications close',
     detail:
-      'A conversational interview with members of the Executive Board. We care how you think, not what you already know.',
+      'A conversation with members of the Executive Board. We care how you think, not what you already know.',
   },
   {
     step: '04',
-    title: 'Decisions & onboarding',
+    title: 'Onboarding',
     when: 'Before projects kick off',
     detail:
-      'New Analysts are placed on a project team and start the onboarding curriculum immediately.',
+      'New Analysts join a project team and start the curriculum right away — term sheets, cap tables, and sourcing from the ground up.',
   },
 ]
 
@@ -49,11 +49,15 @@ const faqs = [
   },
   {
     q: 'Do members actually work on real deals?',
-    a: 'Yes. This past spring our members ran a full research engagement for Charmides Capital and presented findings directly to their investors. This fall we are running three project engagements.',
+    a: 'Yes. Last spring, Charmides Capital gave us their thesis and asked which companies fit it. Our members ranked the market and presented to their investors. This fall we are running three engagements.',
   },
   {
-    q: 'When can I meet the team in person?',
-    a: 'Find our table at the B-Involved activities fair on August 22 from 12 to 3 PM, or come to the callout during the first weeks of the semester.',
+    q: 'When is the deadline?',
+    a: 'The callout and interview dates are still being finalized. Apply now and we will email you the schedule as soon as it is set.',
+  },
+  {
+    q: 'When does the club meet?',
+    a: 'General club sessions run Thursdays, 6:30 to 7:30 PM.',
   },
 ]
 
@@ -67,8 +71,8 @@ export default function Apply() {
             Join VCPurdue
           </h1>
           <p className="text-white/55 text-lg leading-relaxed mb-10">
-            We recruit each fall. Bring curiosity, a strong work ethic, and an opinion about
-            a company you wish existed.
+            Applications are open. Bring curiosity, a strong work ethic, and an opinion
+            about a company you wish existed.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <ApplyButton variant="gold" />

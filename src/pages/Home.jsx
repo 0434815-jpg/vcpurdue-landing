@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import ApplyButton from '../components/ApplyButton'
+import PhotoBand from '../components/PhotoBand'
 import { club, featuredProject, partners } from '../config/site'
 
 export default function Home() {
@@ -43,10 +44,10 @@ export default function Home() {
         <div className="max-w-2xl mx-auto">
           <p className="text-gold text-sm italic mb-5 tracking-wide">Who We Are</p>
           <p className="text-ink text-lg md:text-xl leading-relaxed mb-10">
-            VCPurdue is a student-led venture capital organization home to some of the most
-            driven individuals at Purdue University.
+            Forty students who diligence startups for working venture funds, write the
+            memos, and defend the calls in front of an investment board.
           </p>
-          <ApplyButton variant="gold">Join Us</ApplyButton>
+          <ApplyButton variant="gold" />
         </div>
       </section>
 
@@ -57,10 +58,9 @@ export default function Home() {
             Our Mission
           </h2>
           <p className="text-white/60 text-lg leading-relaxed">
-            We believe in building the next generation of venture capital leaders at Purdue.
-            By giving students hands-on experience in deal sourcing, due diligence, and
-            investment decision-making, VCPurdue bridges the gap between innovative founders
-            and strategic capital.
+            Most students learn investing from a case study. Ours learn it by sourcing
+            deals, running diligence, and making a recommendation someone actually acts
+            on. The work is real, so the reps count.
           </p>
         </div>
       </section>
@@ -108,6 +108,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ---------- PHOTOS ---------- */}
+      <PhotoBand />
+
       {/* ---------- VALUES ---------- */}
       <section className="bg-ink py-28 px-6">
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-16 text-center">
@@ -115,17 +118,17 @@ export default function Home() {
             {
               title: 'Excellence',
               description:
-                'We hold ourselves to the highest standard in everything we do — from research to relationships.',
+                'Our work goes in front of people who invest for a living. It has to survive their questions.',
             },
             {
               title: 'Collaboration',
               description:
-                'The best decisions emerge from diverse perspectives working toward a shared goal.',
+                'Analysts pair with Associates on every engagement. Nobody researches a company alone.',
             },
             {
               title: 'Integrity',
               description:
-                "We build trust through transparency, honesty, and a commitment to doing what's right.",
+                "We say what the data supports and flag what it doesn't. A weak thesis is worth more killed early.",
             },
           ].map(v => (
             <div key={v.title}>
@@ -171,8 +174,8 @@ export default function Home() {
             Ready to Join?
           </h2>
           <p className="text-ink/70 text-lg mb-10 max-w-xl mx-auto leading-relaxed">
-            No prior finance experience required. We'll teach you the technical skills —
-            bring the curiosity.
+            All majors welcome, and no finance background required. We teach the technical
+            side. Bring the curiosity.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <ApplyButton variant="ink" />

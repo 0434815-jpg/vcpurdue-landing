@@ -13,23 +13,23 @@
 export const executiveBoard = [
   {
     name: 'José Sándigo',
-    title: 'President',
+    title: 'Founder & Managing Partner',
     initials: 'JS',
     linkedin: 'https://www.linkedin.com/in/josesandigo',
     photo: '',
     bio: '',
   },
   {
-    name: 'Hieu Duy Nguyen',
+    name: 'Anshul B',
     title: 'Partner, Operations',
-    initials: 'HN',
-    linkedin: 'https://www.linkedin.com/in/hieunguyenlouis',
+    initials: 'AB',
+    linkedin: 'https://www.linkedin.com/in/anshu1b/',
     photo: '',
     bio: '',
   },
   {
     name: 'Cristobal Muñoz',
-    title: 'Partner, Projects',
+    title: 'Co-Founder · Partner, Projects',
     initials: 'CM',
     linkedin: 'https://www.linkedin.com/in/cristobal-munoz-legarre-2bb867327',
     photo: '',
@@ -37,7 +37,7 @@ export const executiveBoard = [
   },
   {
     name: 'Nilay Mehta',
-    title: 'Partner, Finance',
+    title: 'Co-Founder · Partner, Finance',
     initials: 'NM',
     linkedin: 'https://www.linkedin.com/in/nilaymehta1',
     photo: '',
@@ -45,7 +45,7 @@ export const executiveBoard = [
   },
   {
     name: 'Giang Nguyen',
-    title: 'Partner, Partnerships',
+    title: 'Co-Founder · Partner, Partnerships',
     initials: 'GN',
     linkedin: 'https://www.linkedin.com/in/giangnguyenpurdue',
     photo: '',
@@ -61,15 +61,9 @@ export const executiveBoard = [
   },
 ]
 
+// Anshul moved up to Partner, Operations (Aug 21) — he's on the
+// Executive Board above, not here.
 export const seniorAssociates = [
-  {
-    name: 'Anshul B',
-    title: 'Senior Associate',
-    initials: 'AB',
-    linkedin: 'https://www.linkedin.com/in/anshu1b/',
-    photo: '',
-    bio: '',
-  },
   {
     name: 'Maxwell Klug',
     title: 'Senior Associate',
@@ -91,23 +85,26 @@ export const seniorAssociates = [
 export const advisors = [
   {
     name: "Prof. Fabrício d'Almeida",
-    title: 'Faculty Advisor',
+    title: 'Founder & Faculty Advisor',
     initials: 'FA',
-    linkedin: '',
+    linkedin: 'https://www.linkedin.com/in/fabriciodalmeida/',
     photo: '',
-    bio: 'Daniels School of Business, Purdue University.',
+    bio: 'Clinical Assistant Professor of Finance and Academic Director of the MSF Program, Mitchell E. Daniels School of Business.',
   },
   {
-    name: 'Prof. Matthew',
-    title: 'Faculty Advisor',
-    initials: 'M',
-    linkedin: '',
+    name: 'Prof. Matthew D. Lynall',
+    title: 'Founder & Faculty Advisor',
+    initials: 'ML',
+    linkedin: 'https://www.linkedin.com/in/mlynall/',
     photo: '',
-    bio: '',
+    bio: 'Clinical Professor, Mitchell E. Daniels School of Business. Director, NSF I-Corps Hub, Great Lakes Region.',
   },
 ]
 
-// TODO — José asked (May 6) to "figure out where the Founders/
-// Co-Founders go." Confirm with him who this refers to, then
-// either add them here or credit them on the Team page.
+// RESOLVED — José's May 6 question about Founders/Co-Founders.
+// Per the official founding-team graphics:
+//   Founders    — Fabrício d'Almeida, Matthew D. Lynall, José Sándigo
+//   Co-Founders — Hieu Nguyen, Cristobal Muñoz, Giang Nguyen, Nilay Mehta
+// Rather than a duplicate section, this is reflected in each person's
+// title above. Leave this array empty unless you want a separate block.
 export const founders = []

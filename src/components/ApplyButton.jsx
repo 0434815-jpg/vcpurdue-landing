@@ -1,8 +1,14 @@
-import { links, applyOpen } from '../config/site'
+import { links, ctaMode, applyOpen, interestOpen } from '../config/site'
 
-// Single Apply button used everywhere. When `applyOpen` is false
-// in config/site.js it renders a disabled state instead of
-// linking to a dead form — no more placeholder URLs shipping live.
+// The single CTA used everywhere on the site.
+//
+// Which form it points at is controlled by `ctaMode` in config/site.js:
+//   'interest' — early-season signup, before recruiting dates exist
+//   'apply'    — recruiting is open, link the full application
+//
+// A button only becomes clickable when the URL exists AND its flag is
+// true. Otherwise it renders a disabled label. This exists because the
+// Apply button shipped pointing at forms.gle/placeholder for months.
 export default function ApplyButton({ variant = 'gold', className = '', children }) {
   const base =
     'inline-block px-8 py-3.5 text-sm font-semibold tracking-wide transition-colors duration-200'
@@ -14,25 +20,30 @@ export default function ApplyButton({ variant = 'gold', className = '', children
     outlineInk: 'border border-ink text-ink hover:bg-ink/10',
   }
 
-  if (!applyOpen) {
+  const interest = ctaMode === 'interest'
+  const url = interest ? links.interest : links.apply
+  const live = interest ? interestOpen && !!links.interest : applyOpen && !!links.apply
+  const label = children || (interest ? 'Join the Interest List' : 'Apply Now')
+
+  if (!live) {
     return (
       <span
         className={`${base} ${variants[variant]} opacity-50 cursor-not-allowed ${className}`}
-        title="Applications open soon"
+        title={interest ? 'Interest form opens soon' : 'Applications open soon'}
       >
-        Applications Open Soon
+        {interest ? 'Interest Form Opens Soon' : 'Applications Open Soon'}
       </span>
     )
   }
 
   return (
     <a
-      href={links.apply}
+      href={url}
       target="_blank"
       rel="noopener noreferrer"
       className={`${base} ${variants[variant]} ${className}`}
     >
-      {children || 'Apply Now'}
+      {label}
     </a>
   )
 }

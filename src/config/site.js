@@ -5,15 +5,26 @@
 
 // ---- LINKS -------------------------------------------------
 export const links = {
-  apply: 'https://docs.google.com/forms/d/e/1FAIpQLSc1jeMiUUKdBlJif2qESicBuSnBCtp1PE7Z4TuJLuPucregjA/viewform',
+  // Official application form, sent by José on Aug 21 2026.
+  apply: 'https://forms.gle/kgg7s1aiT9HsHe1u8',
+  // Optional early-season signup. Empty and unused while the real
+  // application is live — set a URL and flip ctaMode to 'interest'
+  // if you ever need to collect names before applications open.
+  interest: '',
   boilerlink: 'https://boilerlink.purdue.edu/organization/vcpurdue',
   linkedin: 'https://www.linkedin.com/company/purduevc',
   instagram: 'https://www.instagram.com/pusmvf',
   email: 'pusmvf@purdue.edu',
 }
 
-// Set to false until the Google Form is live — Apply buttons
-// will show "Applications open soon" instead of a dead link.
+// Which CTA the site leads with.
+//   'apply'    — recruiting is open, point at the application (current)
+//   'interest' — collect names now, apply later
+export const ctaMode = 'apply'
+
+// Guards. A button only becomes clickable when its URL exists AND
+// its flag is true, so a placeholder can never ship live again.
+export const interestOpen = false
 export const applyOpen = true
 
 // Set to false until BoilerLink registration is approved.
@@ -22,7 +33,9 @@ export const boilerlinkLive = false
 // ---- CLUB FACTS --------------------------------------------
 export const club = {
   name: 'VCPurdue',
-  fullName: 'Venture Capital at Purdue',
+  // SAO-approved official RSO name. Purdue policy forbids a club
+  // name STARTING with "Purdue", so never shorten to "Purdue VC".
+  fullName: 'Venture Capital Club at Purdue',
   legalNote: 'An independent student organization at Purdue University.',
   school: 'Mitchell E. Daniels, Jr. School of Business',
   founded: 'Spring 2026',
@@ -38,21 +51,21 @@ export const partners = [
     href: 'https://charmidescapital.com',
     role: 'Venture Partner',
     blurb:
-      'An Indiana-based venture firm investing across the Midwest. Our members completed a full research engagement for Charmides and presented findings directly to their investors.',
+      'An Indiana venture firm investing across the Midwest. They gave us their thesis, we ranked the market against it, and our members presented the findings to their investors.',
   },
   {
     name: 'Elevate Ventures',
     href: 'https://elevateventures.com',
     role: 'Venture Partner',
     blurb:
-      "Indiana's most active early-stage investor, backing high-potential startups across the state. A confirmed project partner for the fall semester.",
+      "Indiana's most active early-stage investor. One of our three project teams works with them this fall.",
   },
   {
     name: 'Purdue Innovates',
     href: 'https://purdueinnovates.org/build-my-startup',
     role: 'Campus Partner',
     blurb:
-      "Purdue's commercialization and startup engine, connecting university research to venture funding. A confirmed project partner for the fall semester.",
+      'The office that turns Purdue research into companies. Our members diligence startups coming out of it.',
   },
 ]
 
@@ -64,7 +77,7 @@ export const events = [
     time: '12:00 – 3:00 PM',
     location: 'Purdue Campus',
     description:
-      'Come find our table. Meet the team, ask what a semester actually looks like, and get details on fall recruiting.',
+      'Find our table. Ask what a semester actually looks like and how recruiting works.',
     upcoming: true,
   },
   {
@@ -72,7 +85,7 @@ export const events = [
     date: 'October – November 2026',
     location: 'Midwest Regionals',
     description:
-      'The Venture Capital Investment Competition puts student teams in the investor seat against real founders, judged by working VCs.',
+      'The Venture Capital Investment Competition. Student teams sit on the investor side of the table with real founders, and working VCs judge the calls.',
     upcoming: true,
   },
   {
@@ -80,7 +93,7 @@ export const events = [
     date: 'Spring 2027',
     location: 'Purdue Memorial Union',
     description:
-      'Our flagship event, bringing investors, founders, and students together on campus.',
+      'A day on campus with investors and founders. Planning starts this fall.',
     upcoming: true,
   },
 ]
@@ -91,7 +104,7 @@ export const featuredProject = {
   term: 'Spring 2026',
   headline: 'We ranked the universe.',
   summary:
-    'VCPurdue partnered with Charmides Capital to run a full research engagement and present our findings directly to their investors.',
+    'Charmides gave us their thesis and asked which companies fit it. Four months later we came back with a ranked list and presented it to their investors.',
   thesis: [
     'B2B AI software',
     '$500K – $2.5M revenue',
@@ -99,7 +112,7 @@ export const featuredProject = {
     'Product, not services',
   ],
   deliverable:
-    'A tiered ranking of the market — Tier 1, Tier 2, Tier 3 — plus a strategic overview of everything else.',
+    'Every company sorted into Tier 1, Tier 2, or Tier 3, with a written read on everything that fell outside.',
   team: '5 Associates. 30+ Analysts. One investment board.',
   timeline: [
     { month: 'January', milestone: 'Alliances forged' },
