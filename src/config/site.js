@@ -34,7 +34,7 @@ export const boilerlinkLive = false
 
 // Application deadline, confirmed by José Aug 24 2026.
 // Set to '' to hide the deadline callout.
-export const applyDeadline = 'Applications close Tuesday, September 1 at 11:59 PM'
+export const applyDeadline = 'Applications close Friday, September 4 at 11:59 PM'
 
 // ---- CLUB FACTS --------------------------------------------
 export const club = {

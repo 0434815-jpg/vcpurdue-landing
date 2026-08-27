@@ -7,7 +7,7 @@ const steps = [
   {
     step: '01',
     title: 'Submit the application',
-    when: 'Closes Sept 1',
+    when: 'Closes Sept 4',
     detail:
       'A short written application with your resume. All majors welcome, and no finance background required.',
   },
@@ -53,7 +53,7 @@ const faqs = [
   },
   {
     q: 'When is the deadline?',
-    a: 'Applications close Tuesday, September 1 at 11:59 PM. Call-out sessions are Monday, August 31 at 6:00 PM in KRAN G012, or Wednesday, September 2 at 6:30 PM in RAWL 2079 — same content, come to whichever fits.',
+    a: 'Applications close Friday, September 4 at 11:59 PM. Call-out sessions are Monday, August 31 at 6:00 PM in KRAN G012, or Wednesday, September 2 at 6:30 PM in RAWL 2079 — same content, come to whichever fits.',
   },
   {
     q: 'When does the club meet?',
