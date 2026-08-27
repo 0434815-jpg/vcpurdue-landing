@@ -1,8 +1,10 @@
 import ApplyButton from '../components/ApplyButton'
 import { tracks, links, boilerlinkLive, applyDeadline } from '../config/site'
 
-// ⚠️ The `when` values stay deliberately vague until José and Anshul
-// confirm the recruiting timeline. Don't state a date we can't keep.
+// Recruiting timeline confirmed by Anshul, Aug 27 2026.
+// Deadline moved Sept 1 -> Sept 4, which puts both call-out sessions
+// before the close. Keep this in sync with `applyDeadline` in
+// config/site.js and with the call-out graphics in fair_build.py.
 const steps = [
   {
     step: '01',
