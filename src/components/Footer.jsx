@@ -22,7 +22,7 @@ export default function Footer() {
               {club.fullName}
             </p>
             <p className="text-white/40 text-sm leading-relaxed max-w-xs">
-              Where founders, investors, and ventures converge.
+              The Bridge Between Founders, Startups &amp; Investors.
             </p>
           </div>
 
