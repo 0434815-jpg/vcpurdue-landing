@@ -5,8 +5,10 @@
 
 // ---- LINKS -------------------------------------------------
 export const links = {
-  // Official application form, sent by José on Aug 21 2026.
-  apply: 'https://forms.gle/kgg7s1aiT9HsHe1u8',
+  // Official application form. This is the short link José is
+  // circulating publicly (Aug 24). It resolves to the same form as the
+  // earlier kgg7s1aiT9HsHe1u8 link — keep this matching his posts.
+  apply: 'https://forms.gle/83SmP6dYA4pQB5if7',
   // Optional early-season signup. Empty and unused while the real
   // application is live — set a URL and flip ctaMode to 'interest'
   // if you ever need to collect names before applications open.
@@ -29,6 +31,10 @@ export const applyOpen = true
 
 // Set to false until BoilerLink registration is approved.
 export const boilerlinkLive = false
+
+// Application deadline, confirmed by José Aug 24 2026.
+// Set to '' to hide the deadline callout.
+export const applyDeadline = 'Applications close Tuesday, September 1 at 11:59 PM'
 
 // ---- CLUB FACTS --------------------------------------------
 export const club = {
@@ -72,12 +78,21 @@ export const partners = [
 // ---- EVENTS ------------------------------------------------
 export const events = [
   {
-    title: 'B-Involved Activities Fair',
-    date: 'August 22, 2026',
-    time: '12:00 – 3:00 PM',
-    location: 'Purdue Campus',
+    title: 'Fall Call-Out Session',
+    date: 'Monday, August 31, 2026',
+    time: '6:00 – 7:00 PM',
+    location: 'KRAN G012',
     description:
-      'Find our table. Ask what a semester actually looks like and how recruiting works.',
+      'What the club works on, how the tracks run, and what a semester looks like. Same content as the September 2 session.',
+    upcoming: true,
+  },
+  {
+    title: 'Fall Call-Out Session',
+    date: 'Wednesday, September 2, 2026',
+    time: '6:30 – 8:00 PM',
+    location: 'RAWL 2079',
+    description:
+      'Same session as August 31. Come to whichever fits your schedule.',
     upcoming: true,
   },
   {

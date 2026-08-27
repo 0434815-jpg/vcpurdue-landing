@@ -18,7 +18,7 @@ export default function Events() {
       <section className="bg-ivory py-24 px-6">
         <div className="max-w-4xl mx-auto space-y-px bg-gold/20 border border-gold/20">
           {events.map(e => (
-            <div key={e.title} className="bg-ivory p-10 md:flex md:gap-10">
+            <div key={`${e.title}-${e.date}`} className="bg-ivory p-10 md:flex md:gap-10">
               <div className="md:w-56 shrink-0 mb-4 md:mb-0">
                 <p className="text-gold text-sm font-medium mb-1">{e.date}</p>
                 {e.time && <p className="text-ink/45 text-sm mb-1">{e.time}</p>}

@@ -1,5 +1,5 @@
 import ApplyButton from '../components/ApplyButton'
-import { tracks, links, boilerlinkLive } from '../config/site'
+import { tracks, links, boilerlinkLive, applyDeadline } from '../config/site'
 
 // ⚠️ The `when` values stay deliberately vague until José and Anshul
 // confirm the recruiting timeline. Don't state a date we can't keep.
@@ -7,16 +7,16 @@ const steps = [
   {
     step: '01',
     title: 'Submit the application',
-    when: 'Open now',
+    when: 'Closes Sept 1',
     detail:
       'A short written application with your resume. All majors welcome, and no finance background required.',
   },
   {
     step: '02',
-    title: 'Callout & info session',
-    when: 'First weeks of the semester',
+    title: 'Call-out session',
+    when: 'Aug 31 or Sept 2',
     detail:
-      'Meet the Partners, hear how the club runs, and get the details on this semester’s three project engagements.',
+      'Two sessions, same content. Monday, August 31 at 6:00 PM in KRAN G012, or Wednesday, September 2 at 6:30 PM in RAWL 2079.',
   },
   {
     step: '03',
@@ -53,7 +53,7 @@ const faqs = [
   },
   {
     q: 'When is the deadline?',
-    a: 'The callout and interview dates are still being finalized. Apply now and we will email you the schedule as soon as it is set.',
+    a: 'Applications close Tuesday, September 1 at 11:59 PM. Call-out sessions are Monday, August 31 at 6:00 PM in KRAN G012, or Wednesday, September 2 at 6:30 PM in RAWL 2079 — same content, come to whichever fits.',
   },
   {
     q: 'When does the club meet?',
@@ -70,10 +70,15 @@ export default function Apply() {
           <h1 className="font-serif text-5xl md:text-6xl font-bold text-white mb-6">
             Join VCPurdue
           </h1>
-          <p className="text-white/55 text-lg leading-relaxed mb-10">
+          <p className="text-white/55 text-lg leading-relaxed mb-6">
             Applications are open. Bring curiosity, a strong work ethic, and an opinion
             about a company you wish existed.
           </p>
+          {applyDeadline && (
+            <p className="text-gold text-sm font-semibold tracking-wide uppercase mb-10">
+              {applyDeadline}
+            </p>
+          )}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <ApplyButton variant="gold" />
             {boilerlinkLive && (
