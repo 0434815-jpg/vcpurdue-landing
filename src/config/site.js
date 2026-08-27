@@ -15,7 +15,7 @@ export const links = {
   interest: '',
   boilerlink: 'https://boilerlink.purdue.edu/organization/vcpurdue',
   linkedin: 'https://www.linkedin.com/company/purduevc',
-  instagram: 'https://www.instagram.com/pusmvf',
+  instagram: 'https://www.instagram.com/vcpurdue',
   email: 'pusmvf@purdue.edu',
 }
 
