@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { featuredProject, fallProjects, club } from '../config/site'
+import { featuredProject, fallProjects } from '../config/site'
 
 export default function Projects() {
   const p = featuredProject

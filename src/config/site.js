@@ -73,6 +73,20 @@ export const partners = [
     blurb:
       'The office that turns Purdue research into companies. Our members diligence startups coming out of it.',
   },
+  {
+    name: 'Purdue Research Foundation',
+    href: 'https://prf.org',
+    role: 'Campus Partner',
+    blurb:
+      "Purdue's technology commercialization and research-support foundation.",
+  },
+  {
+    name: 'HIVE',
+    href: 'https://engineering.purdue.edu/HIVE',
+    role: 'Campus Partner',
+    blurb:
+      "Purdue Engineering's hub for student-led startups. Full name: Hub for Innovation, Ventures, and Entrepreneurship.",
+  },
 ]
 
 // ---- EVENTS ------------------------------------------------
