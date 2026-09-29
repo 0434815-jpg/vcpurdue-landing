@@ -27,14 +27,19 @@ export const ctaMode = 'apply'
 // Guards. A button only becomes clickable when its URL exists AND
 // its flag is true, so a placeholder can never ship live again.
 export const interestOpen = false
-export const applyOpen = true
+// Fall 2026 applications closed Sept 4; the linked Google Form no
+// longer accepts responses. Flip to true (and set a fresh applyDeadline
+// below) when the next recruiting cycle's form is live — don't just
+// point this at a dead form again.
+export const applyOpen = false
 
 // Set to false until BoilerLink registration is approved.
 export const boilerlinkLive = false
 
-// Application deadline, confirmed by José Aug 24 2026.
-// Set to '' to hide the deadline callout.
-export const applyDeadline = 'Applications close Friday, September 4 at 11:59 PM'
+// Application deadline. Set to '' to hide the deadline callout —
+// currently empty because Fall 2026 applications are closed and no
+// next date has been confirmed yet.
+export const applyDeadline = ''
 
 // ---- CLUB FACTS --------------------------------------------
 export const club = {
@@ -92,24 +97,6 @@ export const partners = [
 // ---- EVENTS ------------------------------------------------
 export const events = [
   {
-    title: 'Fall Call-Out Session',
-    date: 'Monday, August 31, 2026',
-    time: '6:00 – 7:00 PM',
-    location: 'KRAN G012',
-    description:
-      'What the club works on, how the tracks run, and what a semester looks like. Same content as the September 2 session.',
-    upcoming: true,
-  },
-  {
-    title: 'Fall Call-Out Session',
-    date: 'Wednesday, September 2, 2026',
-    time: '6:30 – 8:00 PM',
-    location: 'RAWL 2079',
-    description:
-      'Same session as August 31. Come to whichever fits your schedule.',
-    upcoming: true,
-  },
-  {
     title: 'VCIC Competition',
     date: 'October – November 2026',
     location: 'Midwest Regionals',
@@ -153,16 +140,16 @@ export const featuredProject = {
 
 export const fallProjects = [
   {
-    partner: 'Charmides Capital',
-    focus: 'Continued deal research and diligence support across the Midwest.',
-  },
-  {
     partner: 'Elevate Ventures',
     focus: "Sourcing and evaluation work with Indiana's most active early-stage investor.",
   },
   {
-    partner: 'Purdue Innovates',
-    focus: 'Diligence on Purdue-affiliated startups coming out of university research.',
+    partner: 'Purdue Research Foundation',
+    focus: "Research and diligence support work with Purdue's technology commercialization office.",
+  },
+  {
+    partner: 'HIVE',
+    focus: "Diligence and research support work with Purdue's student venture hub.",
   },
 ]
 

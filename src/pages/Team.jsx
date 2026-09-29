@@ -29,7 +29,7 @@ function Group({ eyebrow, title, blurb, people, dark = false }) {
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-12">
           {people.map(p => (
-            <PersonCard key={p.name} person={p} />
+            <PersonCard key={p.name} person={p} dark={dark} />
           ))}
         </div>
       </div>

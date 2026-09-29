@@ -27,7 +27,7 @@ function Avatar({ person, size = 'w-24 h-24' }) {
   )
 }
 
-export default function PersonCard({ person }) {
+export default function PersonCard({ person, dark = false }) {
   const [open, setOpen] = useState(false)
   const hasBio = Boolean(person.bio)
   const hasLink = Boolean(person.linkedin)
@@ -45,10 +45,16 @@ export default function PersonCard({ person }) {
 
   const Label = (
     <>
-      <p className="font-serif text-ink font-semibold text-base mb-1 group-hover:text-gold transition-colors duration-200">
+      <p
+        className={`font-serif font-semibold text-base mb-1 group-hover:text-gold transition-colors duration-200 ${
+          dark ? 'text-white' : 'text-ink'
+        }`}
+      >
         {person.name}
       </p>
-      <p className="text-ink/50 text-sm leading-snug">{person.title}</p>
+      <p className={`text-sm leading-snug ${dark ? 'text-white/50' : 'text-ink/50'}`}>
+        {person.title}
+      </p>
     </>
   )
 

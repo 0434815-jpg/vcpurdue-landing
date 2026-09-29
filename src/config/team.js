@@ -1,8 +1,16 @@
 // ============================================================
 //  VCPurdue — team roster
 //
-//  To add a photo: drop the image in src/assets/team/ then set
-//  photo: '/src/assets/team/firstname.jpg'  (or import it).
+//  To add a photo: drop the image in src/assets/team/, import it
+//  at the top of this file, then set `photo:` to the imported
+//  variable — NOT a raw string path. Assets under src/ only get
+//  bundled and hashed by Vite when they're imported; a string like
+//  '/src/assets/team/name.jpg' will 404 in production.
+//
+//    import namePhoto from '../assets/team/name.jpg'
+//    ...
+//    photo: namePhoto,
+//
 //  Photos render with object-cover so they will NOT stretch —
 //  any aspect ratio is safe.
 //
@@ -10,13 +18,24 @@
 //  Leave `bio` empty and the card won't open a modal.
 // ============================================================
 
+import josePhoto from '../assets/team/jose.png'
+import anshulPhoto from '../assets/team/anshul.png'
+import cristobalPhoto from '../assets/team/cristobal.png'
+import nilayPhoto from '../assets/team/nilay.png'
+import giangPhoto from '../assets/team/giang.png'
+import jakePhoto from '../assets/team/jake.png'
+import maxwellPhoto from '../assets/team/maxwell.png'
+import williamPhoto from '../assets/team/william.png'
+import fabricioPhoto from '../assets/team/fabricio.png'
+import matthewPhoto from '../assets/team/matthew.png'
+
 export const executiveBoard = [
   {
     name: 'José Sándigo',
     title: 'Founder & Managing Partner',
     initials: 'JS',
     linkedin: 'https://www.linkedin.com/in/josesandigo',
-    photo: '',
+    photo: josePhoto,
     bio: '',
   },
   {
@@ -24,7 +43,7 @@ export const executiveBoard = [
     title: 'Partner, Operations',
     initials: 'AB',
     linkedin: 'https://www.linkedin.com/in/anshu1b/',
-    photo: '',
+    photo: anshulPhoto,
     bio: '',
   },
   {
@@ -32,7 +51,7 @@ export const executiveBoard = [
     title: 'Co-Founder · Partner, Projects',
     initials: 'CM',
     linkedin: 'https://www.linkedin.com/in/cristobal-munoz-legarre-2bb867327',
-    photo: '',
+    photo: cristobalPhoto,
     bio: '',
   },
   {
@@ -40,7 +59,7 @@ export const executiveBoard = [
     title: 'Co-Founder · Partner, Finance',
     initials: 'NM',
     linkedin: 'https://www.linkedin.com/in/nilaymehta1',
-    photo: '',
+    photo: nilayPhoto,
     bio: '',
   },
   {
@@ -48,7 +67,7 @@ export const executiveBoard = [
     title: 'Co-Founder · Partner, Partnerships',
     initials: 'GN',
     linkedin: 'https://www.linkedin.com/in/giangnguyenpurdue',
-    photo: '',
+    photo: giangPhoto,
     bio: '',
   },
   {
@@ -56,7 +75,7 @@ export const executiveBoard = [
     title: 'Partner, Marketing',
     initials: 'JW',
     linkedin: 'https://www.linkedin.com/in/jake-white-785b08317',
-    photo: '',
+    photo: jakePhoto,
     bio: '',
   },
 ]
@@ -69,7 +88,7 @@ export const seniorAssociates = [
     title: 'Senior Associate',
     initials: 'MK',
     linkedin: 'https://www.linkedin.com/in/maxwell-klug/',
-    photo: '',
+    photo: maxwellPhoto,
     bio: '',
   },
   {
@@ -77,7 +96,7 @@ export const seniorAssociates = [
     title: 'Senior Associate',
     initials: 'WS',
     linkedin: 'https://www.linkedin.com/in/william-schnefke/',
-    photo: '',
+    photo: williamPhoto,
     bio: '',
   },
 ]
@@ -88,7 +107,7 @@ export const advisors = [
     title: 'Founder & Faculty Advisor',
     initials: 'FA',
     linkedin: 'https://www.linkedin.com/in/fabriciodalmeida/',
-    photo: '',
+    photo: fabricioPhoto,
     bio: 'Clinical Assistant Professor of Finance and Academic Director of the MSF Program, Mitchell E. Daniels School of Business.',
   },
   {
@@ -96,7 +115,7 @@ export const advisors = [
     title: 'Founder & Faculty Advisor',
     initials: 'ML',
     linkedin: 'https://www.linkedin.com/in/mlynall/',
-    photo: '',
+    photo: matthewPhoto,
     bio: 'Clinical Professor, Mitchell E. Daniels School of Business. Director, NSF I-Corps Hub, Great Lakes Region.',
   },
 ]

@@ -1,15 +1,15 @@
 import ApplyButton from '../components/ApplyButton'
 import { tracks, links, boilerlinkLive, applyDeadline } from '../config/site'
 
-// Recruiting timeline confirmed by Anshul, Aug 27 2026.
-// Deadline moved Sept 1 -> Sept 4, which puts both call-out sessions
-// before the close. Keep this in sync with `applyDeadline` in
-// config/site.js and with the call-out graphics in fair_build.py.
+// Fall 2026 cycle closed Sept 4 (see `applyOpen` in config/site.js).
+// These steps describe how that closed cycle ran; update `when` on
+// step 01 and reopen the flow (applyOpen/applyDeadline) once a new
+// cycle's dates and form are confirmed.
 const steps = [
   {
     step: '01',
     title: 'Submit the application',
-    when: 'Closes Sept 4',
+    when: 'Closed',
     detail:
       'A short written application with your resume. All majors welcome, and no finance background required.',
   },
@@ -54,8 +54,8 @@ const faqs = [
     a: 'Yes. Last spring, Charmides Capital gave us their thesis and asked which companies fit it. Our members ranked the market and presented to their investors. This fall we are running three engagements.',
   },
   {
-    q: 'When is the deadline?',
-    a: 'Applications close Friday, September 4 at 11:59 PM. Call-out sessions are Monday, August 31 at 6:00 PM in KRAN G012, or Wednesday, September 2 at 6:30 PM in RAWL 2079 — same content, come to whichever fits.',
+    q: 'Are applications still open?',
+    a: 'No. Applications for Fall 2026 closed Friday, September 4.',
   },
   {
     q: 'When does the club meet?',
@@ -73,8 +73,7 @@ export default function Apply() {
             Join VCPurdue
           </h1>
           <p className="text-white/55 text-lg leading-relaxed mb-6">
-            Applications are open. Bring curiosity, a strong work ethic, and an opinion
-            about a company you wish existed.
+            Applications for Fall 2026 are closed.
           </p>
           {applyDeadline && (
             <p className="text-gold text-sm font-semibold tracking-wide uppercase mb-10">

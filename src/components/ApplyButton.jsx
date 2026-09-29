@@ -29,9 +29,9 @@ export default function ApplyButton({ variant = 'gold', className = '', children
     return (
       <span
         className={`${base} ${variants[variant]} opacity-50 cursor-not-allowed ${className}`}
-        title={interest ? 'Interest form opens soon' : 'Applications open soon'}
+        title={interest ? 'Interest form opens soon' : 'Applications are closed'}
       >
-        {interest ? 'Interest Form Opens Soon' : 'Applications Open Soon'}
+        {interest ? 'Interest Form Opens Soon' : 'Applications Closed'}
       </span>
     )
   }
