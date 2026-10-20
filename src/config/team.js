@@ -11,21 +11,22 @@
 //    ...
 //    photo: namePhoto,
 //
-//  Photos render with object-cover so they will NOT stretch —
-//  any aspect ratio is safe.
+//  Cards show photos in a 4:5 portrait box with object-cover, so they
+//  will NOT stretch. Prefer 4:5 crops (e.g. 800x1000) with the eyes in
+//  the upper third; other ratios are cropped to fit.
 //
 //  Leave `photo` empty and the card falls back to initials.
 //  Leave `bio` empty and the card won't open a modal.
 // ============================================================
 
-import josePhoto from '../assets/team/jose.png'
+import josePhoto from '../assets/team/jose.jpg'
 import anshulPhoto from '../assets/team/anshul.png'
 import cristobalPhoto from '../assets/team/cristobal.png'
 import nilayPhoto from '../assets/team/nilay.png'
-import giangPhoto from '../assets/team/giang.png'
-import jakePhoto from '../assets/team/jake.png'
-import maxwellPhoto from '../assets/team/maxwell.png'
-import williamPhoto from '../assets/team/william.png'
+import giangPhoto from '../assets/team/giang.jpg'
+import jakePhoto from '../assets/team/jake.jpg'
+import maxwellPhoto from '../assets/team/maxwell.jpg'
+import williamPhoto from '../assets/team/william.jpg'
 import fabricioPhoto from '../assets/team/fabricio.png'
 import matthewPhoto from '../assets/team/matthew.png'
 

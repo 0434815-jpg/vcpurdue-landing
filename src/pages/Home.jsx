@@ -1,112 +1,270 @@
 import { Link } from 'react-router-dom'
-import ApplyButton from '../components/ApplyButton'
+import Button from '../components/Button'
+import Eyebrow from '../components/Eyebrow'
+import LinkCard from '../components/LinkCard'
 import PhotoBand from '../components/PhotoBand'
-import { club, featuredProject, partners } from '../config/site'
+import Reveal from '../components/Reveal'
+import { stagger } from '../components/stagger'
+import SplitBar from '../components/SplitBar'
+import { FramedStats, StatStrip } from '../components/StatStrip'
+import { ArrowRight } from '../components/Icons'
+import clubFormal from '../assets/photos/club-formal.jpg'
+import {
+  club,
+  deliverables,
+  featuredProject,
+  membership,
+  partnershipMailto,
+  partners,
+  tracks,
+} from '../config/site'
 
 export default function Home() {
+  const fallPartners = partners.filter(p => p.season === 'Fall 2026')
+
   return (
     <>
       {/* ---------- HERO ---------- */}
-      <section className="bg-ink min-h-[88vh] flex items-center justify-center text-center px-6">
-        <div className="max-w-4xl mx-auto">
-          {/* Official club slogan. The old line ("Where Founders,
-              Investors & Ventures Converge") belongs to an IU club —
-              José flagged it Aug 21. Do not reuse it. */}
-          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6">
-            The Bridge Between Founders, Startups &amp; Investors.
-          </h1>
-          <p className="text-white/60 text-lg md:text-xl mb-12 max-w-xl mx-auto leading-relaxed">
-            Purdue University's student-led venture capital organization.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <ApplyButton variant="gold" />
-            <Link
-              to="/projects"
-              className="inline-block px-8 py-3.5 border border-gold text-gold text-sm font-semibold tracking-wide hover:bg-gold/10 transition-colors duration-200"
-            >
-              See Our Work
-            </Link>
+      <section className="bg-ink px-6 text-white">
+        <div className="mx-auto grid max-w-6xl items-center gap-12 pb-14 pt-14 lg:grid-cols-[1.25fr_0.75fr] lg:gap-14 lg:pb-20 lg:pt-20">
+          <div>
+            <Reveal>
+              <Eyebrow dark>{club.fullName}</Eyebrow>
+            </Reveal>
+            {/* Official slogan is "The Bridge Between Founders, Startups &
+                Investors." (footer). The old line ("Where Founders,
+                Investors & Ventures Converge") belongs to an IU club —
+                José flagged it Aug 21. Do not reuse it. */}
+            <Reveal delay={100}>
+              <h1 className="type-hero mb-6 mt-5">
+                Research startups. Build investment conviction.
+              </h1>
+            </Reveal>
+            <Reveal delay={200}>
+              <p className="mb-9 max-w-xl text-lg leading-relaxed text-white/75 lg:text-xl">
+                Purdue&rsquo;s student-led venture capital organization. {club.memberCount}&nbsp;members
+                source companies, run diligence, and present recommendations to venture partners.
+              </p>
+            </Reveal>
+            <Reveal delay={300}>
+              <div className="flex flex-wrap gap-4">
+                <Button to="/projects" variant="gold">
+                  Our Work
+                </Button>
+                <Button to="/partners" variant="outlineGold">
+                  Partner With Us
+                </Button>
+              </div>
+            </Reveal>
           </div>
 
-          <div className="mt-20 pt-8 border-t border-white/10 flex flex-wrap justify-center gap-x-12 gap-y-4 text-sm text-white/40">
-            <span>
-              <strong className="text-white/80 font-medium">{club.memberCount}</strong> members
-            </span>
-            <span>
-              <strong className="text-white/80 font-medium">3</strong> partner firms
-            </span>
-            <span>
-              <strong className="text-white/80 font-medium">3</strong> investor tracks
-            </span>
+          <Reveal delay={450} className="relative">
+            <div
+              aria-hidden="true"
+              className="absolute -inset-0 hidden translate-x-3 translate-y-3 border border-gold/60 lg:block"
+            />
+            <div className="relative aspect-[4/5] overflow-hidden bg-white/5">
+              <img
+                src={clubFormal}
+                alt="VCPurdue's Fall 2026 class gathered on a staircase"
+                className="h-full w-full object-cover"
+                style={{ objectPosition: '50% 100%' }}
+                fetchPriority="high"
+              />
+            </div>
+          </Reveal>
+        </div>
+
+        <div className="mx-auto max-w-6xl">
+          <StatStrip
+            items={[
+              { value: club.memberCount, label: 'Members', note: club.memberLabel },
+              { value: club.colleges, label: 'Purdue colleges' },
+              { value: club.projectTeams, label: 'Project teams' },
+            ]}
+          />
+        </div>
+      </section>
+
+      {/* ---------- MISSION ---------- */}
+      <section className="bg-ivory px-6 py-24">
+        <div className="mx-auto max-w-4xl">
+          <Reveal>
+            <Eyebrow className="mb-6">Our mission</Eyebrow>
+          </Reveal>
+          <Reveal delay={80}>
+            <p className="font-display text-2xl font-semibold leading-snug tracking-tight text-ink md:text-[2rem]">
+              Most students learn investing from a case study. Ours learn it by sourcing deals,
+              running diligence, and making a recommendation someone actually acts on. The work is
+              real, so the reps count.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ---------- PROOF / FEATURED PROJECT ---------- */}
+      <section className="bg-ink px-6 py-24 text-white">
+        <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+          <div>
+            <Reveal>
+              <Eyebrow dark className="mb-5">
+                {featuredProject.term} · {featuredProject.partner}
+              </Eyebrow>
+            </Reveal>
+            <Reveal delay={80}>
+              <h2 className="type-h2 mb-6">{featuredProject.headline}</h2>
+            </Reveal>
+            <Reveal delay={160}>
+              <p className="mb-8 max-w-xl text-lg leading-relaxed text-white/75">
+                {featuredProject.summary}
+              </p>
+            </Reveal>
+            <Reveal delay={240}>
+              <Link
+                to="/projects"
+                className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-gold underline decoration-gold/60 underline-offset-8 transition-colors duration-200 hover:text-gold-light"
+              >
+                Read the full engagement <ArrowRight />
+              </Link>
+            </Reveal>
+          </div>
+
+          <FramedStats
+            items={featuredProject.stats}
+            caption={`${featuredProject.term} engagement`}
+          />
+        </div>
+      </section>
+
+      {/* ---------- TWO AUDIENCES ---------- */}
+      <section className="bg-ivory px-6 py-24">
+        <div className="mx-auto max-w-6xl">
+          <Reveal>
+            <Eyebrow className="mb-5">Get involved</Eyebrow>
+          </Reveal>
+          <Reveal delay={80}>
+            <h2 className="type-h2 mb-14 max-w-2xl">For students and for venture firms.</h2>
+          </Reveal>
+
+          <div className="grid gap-6 lg:grid-cols-2">
+            {/* Students */}
+            <Reveal delay={0} className="border border-l-2 border-ink/15 border-l-gold bg-white/50 p-8 md:p-10">
+              <h3 className="type-h3 mb-4">For students</h3>
+              <p className="mb-8 leading-relaxed text-ink/80">
+                Members source companies, run diligence, and present recommendations to venture
+                partners. All majors welcome, and no finance background required.
+              </p>
+
+              <ol className="mb-9 space-y-5">
+                {tracks.map((t, i) => (
+                  <li key={t.tier} className="flex gap-4">
+                    <span className="font-display flex h-9 w-9 shrink-0 items-center justify-center bg-gold text-sm font-bold text-ink">
+                      0{i + 1}
+                    </span>
+                    <div>
+                      <p className="font-display font-bold leading-tight">
+                        {t.tier}{' '}
+                        <span className="ml-1 text-xs font-semibold uppercase tracking-[0.16em] text-ink/60">
+                          {t.tag}
+                        </span>
+                      </p>
+                      <p className="mt-1 text-sm leading-relaxed text-ink/75">{t.description}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+
+              <Button to="/apply" variant="outlineInk">
+                Recruiting
+              </Button>
+            </Reveal>
+
+            {/* Firms */}
+            <Reveal delay={120} className="border border-l-2 border-ink/15 border-l-gold bg-white/50 p-8 md:p-10">
+              <h3 className="type-h3 mb-4">For venture firms</h3>
+              <p className="mb-8 leading-relaxed text-ink/80">
+                We partner with venture firms, accelerators, and founders who want serious
+                research support from a team that treats it like the job it is.
+              </p>
+
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-ink/70">
+                What we deliver
+              </p>
+              <ul className="mb-8 space-y-2">
+                {deliverables.map(d => (
+                  <li key={d} className="flex items-center gap-3 font-display font-bold">
+                    <span aria-hidden="true" className="h-px w-5 bg-gold" />
+                    {d}
+                  </li>
+                ))}
+              </ul>
+
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-ink/70">
+                Proof
+              </p>
+              <Link
+                to="/projects"
+                className="mb-8 inline-flex items-center gap-2 text-sm font-semibold underline decoration-gold decoration-2 underline-offset-4 transition-colors hover:text-ink/70"
+              >
+                Read the {featuredProject.partner} engagement <ArrowRight />
+              </Link>
+
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-ink/70">
+                Current partners
+              </p>
+              <p className="mb-9 text-sm leading-relaxed text-ink/80">
+                {fallPartners.map(p => p.name).join(', ')}.{' '}
+                <span className="text-ink/65">
+                  Spring 2026: {partners.find(p => p.season === 'Spring 2026')?.name}.
+                </span>
+              </p>
+
+              <div className="flex flex-wrap gap-3">
+                <Button href={partnershipMailto} variant="ink">
+                  Start a conversation
+                </Button>
+                <Button to="/partners" variant="outlineInk">
+                  Our partners
+                </Button>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
 
       {/* ---------- WHO WE ARE ---------- */}
-      <section className="bg-ivory py-28 px-6 text-center">
-        <div className="max-w-2xl mx-auto">
-          <p className="text-gold text-sm italic mb-5 tracking-wide">Who We Are</p>
-          <p className="text-ink text-lg md:text-xl leading-relaxed mb-10">
-            Forty students who diligence startups for working venture funds, write the
-            memos, and defend the calls in front of an investment board.
-          </p>
-          <ApplyButton variant="gold" />
-        </div>
-      </section>
-
-      {/* ---------- MISSION ---------- */}
-      <section className="bg-ink py-28 px-6 text-center">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="font-serif text-4xl md:text-5xl font-bold text-white mb-8">
-            Our Mission
-          </h2>
-          <p className="text-white/60 text-lg leading-relaxed">
-            Most students learn investing from a case study. Ours learn it by sourcing
-            deals, running diligence, and making a recommendation someone actually acts
-            on. The work is real, so the reps count.
-          </p>
-        </div>
-      </section>
-
-      {/* ---------- PROOF / FEATURED PROJECT ---------- */}
-      <section className="bg-ivory py-28 px-6">
-        <div className="max-w-5xl mx-auto">
-          <p className="text-gold text-sm italic mb-4 tracking-wide text-center">
-            {featuredProject.term} · {featuredProject.partner}
-          </p>
-          <h2 className="font-serif text-4xl md:text-5xl font-bold text-ink text-center mb-6">
-            {featuredProject.headline}
-          </h2>
-          <p className="text-ink/65 text-lg leading-relaxed text-center max-w-2xl mx-auto mb-14">
-            {featuredProject.summary}
-          </p>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-gold/20 border border-gold/20 mb-12">
-            <div className="bg-ivory p-8 text-center">
-              <p className="font-serif text-3xl font-bold text-ink mb-1">
-                {club.associateCount}
+      <section className="bg-ink px-6 py-24 text-white">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-14 grid gap-8 lg:grid-cols-2 lg:items-end">
+            <div>
+              <Reveal>
+                <Eyebrow dark className="mb-5">
+                  Who we are · {membership.term}
+                </Eyebrow>
+              </Reveal>
+              <Reveal delay={80}>
+                <h2 className="type-h2">
+                  {club.memberCount} members from {club.colleges} Purdue colleges.
+                </h2>
+              </Reveal>
+            </div>
+            <Reveal delay={160}>
+              <p className="font-display text-2xl font-semibold leading-snug text-gold-light md:text-3xl">
+                {membership.outsideBusiness} of our members come from outside the business school.
               </p>
-              <p className="text-ink/50 text-sm">Associates</p>
-            </div>
-            <div className="bg-ivory p-8 text-center">
-              <p className="font-serif text-3xl font-bold text-ink mb-1">
-                {club.analystCount}
-              </p>
-              <p className="text-ink/50 text-sm">Analysts</p>
-            </div>
-            <div className="bg-ivory p-8 text-center">
-              <p className="font-serif text-3xl font-bold text-ink mb-1">4</p>
-              <p className="text-ink/50 text-sm">Months</p>
-            </div>
+            </Reveal>
           </div>
 
-          <div className="text-center">
-            <Link
-              to="/projects"
-              className="inline-block px-8 py-3.5 border border-ink text-ink text-sm font-semibold tracking-wide hover:bg-ink/10 transition-colors duration-200"
-            >
-              Read the full engagement →
-            </Link>
+          <div className="space-y-10 border border-gold/50 p-6 sm:p-10">
+            <Reveal>
+              <SplitBar title="By college" items={membership.byCollege} />
+            </Reveal>
+            <Reveal delay={120}>
+              <SplitBar
+                title={`By class · ${membership.classLevels} class levels`}
+                items={membership.byClass}
+              />
+            </Reveal>
           </div>
         </div>
       </section>
@@ -114,81 +272,36 @@ export default function Home() {
       {/* ---------- PHOTOS ---------- */}
       <PhotoBand />
 
-      {/* ---------- VALUES ---------- */}
-      <section className="bg-ink py-28 px-6">
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-16 text-center">
-          {[
-            {
-              title: 'Excellence',
-              description:
-                'Our work goes in front of people who invest for a living. It has to survive their questions.',
-            },
-            {
-              title: 'Collaboration',
-              description:
-                'Analysts pair with Associates on every engagement. Nobody researches a company alone.',
-            },
-            {
-              title: 'Integrity',
-              description:
-                "We say what the data supports and flag what it doesn't. A weak thesis is worth more killed early.",
-            },
-          ].map(v => (
-            <div key={v.title}>
-              <h3 className="font-serif text-2xl font-semibold text-white mb-4">{v.title}</h3>
-              <div className="w-8 h-px bg-gold mx-auto mb-5" />
-              <p className="text-white/50 text-sm leading-relaxed">{v.description}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* ---------- PARTNERS STRIP ---------- */}
-      <section className="bg-ivory border-t border-gold/15 py-24 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-gold text-sm italic mb-10 tracking-wide">Our Partners</p>
-          <div className="flex flex-wrap justify-center gap-x-16 gap-y-8 mb-12">
-            {partners.map(p => (
-              <a
+      <section className="border-t border-gold/20 bg-ivory px-6 pb-24 pt-20">
+        <div className="mx-auto max-w-6xl">
+          <Reveal>
+            <Eyebrow className="mb-10">Our partners</Eyebrow>
+          </Reveal>
+          <div className="mb-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+            {partners.map((p, i) => (
+              <LinkCard
                 key={p.name}
                 href={p.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative font-serif text-xl text-ink/60 hover:text-gold transition-colors duration-200 group"
+                label={p.name}
+                delay={stagger(i)}
+                className="p-5 pr-12"
               >
-                {p.name}
-                <span className="absolute -bottom-1 left-0 h-px w-0 bg-gold transition-all duration-300 group-hover:w-full" />
-              </a>
+                <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-ink/65">
+                  {p.season}
+                </p>
+                <p className="font-display text-lg font-bold leading-tight">{p.name}</p>
+              </LinkCard>
             ))}
           </div>
-          <Link
-            to="/partners"
-            className="text-ink/50 text-sm hover:text-gold transition-colors duration-200"
-          >
-            More on our partnerships →
-          </Link>
-        </div>
-      </section>
-
-      {/* ---------- CTA ---------- */}
-      <section className="bg-gold py-28 px-6 text-center">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="font-serif text-4xl md:text-5xl font-bold text-ink mb-6">
-            Ready to Join?
-          </h2>
-          <p className="text-ink/70 text-lg mb-10 max-w-xl mx-auto leading-relaxed">
-            All majors welcome, and no finance background required. We teach the technical
-            side. Bring the curiosity.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <ApplyButton variant="ink" />
+          <Reveal>
             <Link
-              to="/apply"
-              className="inline-block px-8 py-3.5 border border-ink text-ink text-sm font-semibold tracking-wide hover:bg-ink/10 transition-colors duration-200"
+              to="/partners"
+              className="inline-flex items-center gap-2 text-sm font-semibold underline decoration-gold decoration-2 underline-offset-4 transition-colors hover:text-ink/70"
             >
-              How Recruiting Works
+              More on our partnerships <ArrowRight />
             </Link>
-          </div>
+          </Reveal>
         </div>
       </section>
     </>

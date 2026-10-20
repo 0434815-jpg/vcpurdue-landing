@@ -1,33 +1,31 @@
 import { useState, useEffect } from 'react'
+import Reveal from './Reveal'
+import { LinkedInGlyph } from './Icons'
 
-const LinkedInGlyph = ({ className = 'w-4 h-4' }) => (
-  <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-  </svg>
-)
-
-// Photos use object-cover inside a fixed square, so any source aspect
-// ratio is safe — stretched photos were flagged early by the president.
-function Avatar({ person, size = 'w-24 h-24' }) {
+// 4:5 portrait box, object-cover, so any source ratio is cropped rather
+// than stretched. `photoPosition` (optional, on the person) nudges the
+// crop so heads aren't cut; the default keeps the upper part of the frame.
+function Photo({ person, className = '' }) {
   return (
-    <div
-      className={`${size} rounded-full overflow-hidden border border-gold/40 bg-gold/10 flex items-center justify-center shrink-0 group-hover:border-gold group-hover:bg-gold/20 transition-all duration-200`}
-    >
+    <div className={`relative aspect-[4/5] overflow-hidden bg-gold/15 ${className}`}>
       {person.photo ? (
         <img
           src={person.photo}
           alt={person.name}
-          className="w-full h-full object-cover"
           loading="lazy"
+          className="h-full w-full object-cover transition-transform duration-500 motion-safe:group-hover:scale-[1.03]"
+          style={{ objectPosition: person.photoPosition || '50% 20%' }}
         />
       ) : (
-        <span className="font-serif text-gold font-semibold text-lg">{person.initials}</span>
+        <span className="font-display absolute inset-0 flex items-center justify-center text-4xl font-bold text-gold">
+          {person.initials}
+        </span>
       )}
     </div>
   )
 }
 
-export default function PersonCard({ person, dark = false }) {
+export default function PersonCard({ person, dark = false, delay = 0 }) {
   const [open, setOpen] = useState(false)
   const hasBio = Boolean(person.bio)
   const hasLink = Boolean(person.linkedin)
@@ -43,39 +41,41 @@ export default function PersonCard({ person, dark = false }) {
     }
   }, [open])
 
+  const frame = `border transition-colors duration-200 ${
+    dark ? 'border-white/15 group-hover:border-gold' : 'border-ink/15 group-hover:border-gold'
+  }`
+  const action = `mt-3 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.16em] ${
+    dark ? 'text-gold' : 'text-ink'
+  } underline decoration-gold decoration-1 underline-offset-4`
+
   const Label = (
     <>
       <p
-        className={`font-serif font-semibold text-base mb-1 group-hover:text-gold transition-colors duration-200 ${
+        className={`font-display mt-4 text-lg font-bold leading-tight ${
           dark ? 'text-white' : 'text-ink'
         }`}
       >
         {person.name}
       </p>
-      <p className={`text-sm leading-snug ${dark ? 'text-white/50' : 'text-ink/50'}`}>
+      <p className={`mt-1 text-sm leading-snug ${dark ? 'text-white/70' : 'text-ink/70'}`}>
         {person.title}
       </p>
     </>
   )
 
-  // With a bio the card opens a modal; without one it links straight to
-  // LinkedIn. Either way the LinkedIn URL stays reachable — advisors
-  // have bios, so their links were previously buried.
   let Card
   if (hasBio) {
     Card = (
       <button
         onClick={() => setOpen(true)}
-        className="flex flex-col items-center text-center group cursor-pointer w-full"
+        className="group block w-full cursor-pointer text-left"
         aria-label={`Read about ${person.name}`}
       >
-        <div className="mb-5">
-          <Avatar person={person} />
+        <div className={frame}>
+          <Photo person={person} />
         </div>
         {Label}
-        <span className="mt-2 text-[11px] tracking-wide uppercase text-gold/70 group-hover:text-gold transition-colors">
-          Read bio
-        </span>
+        <span className={action}>Read bio</span>
       </button>
     )
   } else if (hasLink) {
@@ -84,23 +84,24 @@ export default function PersonCard({ person, dark = false }) {
         href={person.linkedin}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex flex-col items-center text-center group w-full"
+        className="group block w-full"
+        aria-label={`${person.name} on LinkedIn (opens in a new tab)`}
       >
-        <div className="mb-5">
-          <Avatar person={person} />
+        <div className={frame}>
+          <Photo person={person} />
         </div>
         {Label}
-        <span className="mt-2 inline-flex items-center gap-1 text-[11px] tracking-wide uppercase text-gold/70 group-hover:text-gold transition-colors">
-          <LinkedInGlyph className="w-3 h-3" />
+        <span className={action}>
+          <LinkedInGlyph className="h-3 w-3" />
           LinkedIn
         </span>
       </a>
     )
   } else {
     Card = (
-      <div className="flex flex-col items-center text-center group w-full">
-        <div className="mb-5">
-          <Avatar person={person} />
+      <div className="group block w-full">
+        <div className={frame}>
+          <Photo person={person} />
         </div>
         {Label}
       </div>
@@ -108,56 +109,56 @@ export default function PersonCard({ person, dark = false }) {
   }
 
   return (
-    <>
+    <Reveal delay={delay}>
       {Card}
 
       {open && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center px-6 bg-ink/75 backdrop-blur-sm"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-ink/80 px-6 backdrop-blur-sm"
           onClick={() => setOpen(false)}
           role="dialog"
           aria-modal="true"
+          aria-label={person.name}
         >
           <div
-            className="bg-ivory max-w-lg w-full p-10 relative shadow-2xl"
+            className="relative w-full max-w-lg border border-gold/40 bg-ivory p-8 text-ink shadow-2xl sm:p-10"
             onClick={e => e.stopPropagation()}
           >
             <button
               onClick={() => setOpen(false)}
               aria-label="Close"
-              className="absolute top-5 right-5 text-ink/40 hover:text-ink transition-colors"
+              className="absolute right-5 top-5 text-ink/60 transition-colors hover:text-ink"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
 
-            <div className="flex items-center gap-5 mb-6">
-              <Avatar person={person} size="w-20 h-20" />
+            <div className="mb-6 flex items-center gap-5">
+              <Photo person={person} className="w-20 shrink-0" />
               <div className="text-left">
-                <p className="font-serif text-2xl font-bold text-ink leading-tight">
-                  {person.name}
-                </p>
-                <p className="text-gold text-sm mt-1">{person.title}</p>
+                <p className="font-display text-2xl font-bold leading-tight">{person.name}</p>
+                <p className="mt-1 text-sm text-ink/70">{person.title}</p>
               </div>
             </div>
 
-            <p className="text-ink/70 text-sm leading-relaxed text-left mb-7">{person.bio}</p>
+            <p className="mb-7 text-left text-base leading-relaxed text-ink/80">{person.bio}</p>
 
             {hasLink && (
               <a
                 href={person.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-ink text-white text-sm font-medium hover:bg-ink/80 transition-colors"
+                className="inline-flex items-center gap-2 bg-ink px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-ink/80"
               >
                 <LinkedInGlyph />
                 View LinkedIn
+                <span className="sr-only">(opens in a new tab)</span>
               </a>
             )}
           </div>
         </div>
       )}
-    </>
+    </Reveal>
   )
 }

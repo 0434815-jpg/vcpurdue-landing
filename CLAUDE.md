@@ -1,14 +1,16 @@
 # VCPurdue website
 
-Marketing site for **Venture Capital at Purdue (VCPurdue)** — a student-led venture capital organization at Purdue's Daniels School of Business. Maintained by Jake White, Partner of Marketing.
+Marketing site for **VCPurdue — Venture Capital Club at Purdue**, a student-led venture capital organization at Purdue's Daniels School of Business. Maintained by Jake White, Partner of Marketing.
 
-Deployed on Vercel: https://vcpurdue-landing.vercel.app/
+Live: https://vcpurdue.com (Vercel deploys `main`; every branch/PR gets a preview URL).
+
+**Never push directly to `main`.** Work on a branch, open a PR, review the Vercel preview, then merge.
 
 ## Stack
 
 React 19 · Vite 8 · Tailwind 4 (via `@tailwindcss/vite`) · react-router-dom 7
 
-No TypeScript, no shadcn, no component library. Plain JSX + Tailwind utility classes.
+No TypeScript, no component library, no animation library. Plain JSX + Tailwind utility classes.
 
 ```bash
 npm run dev      # local dev
@@ -20,14 +22,20 @@ npm run lint
 
 **All content lives in two config files. Never hardcode content into components.**
 
-- `src/config/site.js` — links, club stats, partners, events, project write-ups, member tracks
+- `src/config/site.js` — links, club facts, class makeup, partners, events, VCIC, project write-ups, member tracks, and a TODO list of facts we still need
 - `src/config/team.js` — every person, grouped: `executiveBoard`, `seniorAssociates`, `advisors`, `founders`
 
 Pages in `src/pages/` compose sections inline. Shared pieces in `src/components/`:
 
-- `ApplyButton.jsx` — every Apply/Join CTA on the site. Reads `links.apply` + `applyOpen`.
-- `PersonCard.jsx` — avatar + name + title. Opens a bio modal if `bio` is set, else links to LinkedIn.
-- `Navbar.jsx` / `Footer.jsx`
+- `Reveal.jsx` (+ `stagger.js`) — scroll reveal, IntersectionObserver, no dependencies. Wrap blocks, cards, photos. Fades in + rises 16px once at ~15% visible; hides only after mount; does nothing under `prefers-reduced-motion`.
+- `Eyebrow.jsx` — tracked-caps label with a gold rule. `dark` on dark sections.
+- `Button.jsx` — all buttons (`to` = in-app route, `href` = anything else; https opens a new tab).
+- `LinkCard.jsx` — a card that is one big external link (gold left rule, gold border + arrow on hover).
+- `StatStrip.jsx` — `StatStrip` (big gold numerals), `FactStrip` (label/value cells), `FramedStats`.
+- `SplitBar.jsx` — proportional bar with legend (no chart library).
+- `ApplyButton.jsx` — links to the application only while `applyOpen` is true; otherwise goes to the on-site `/apply` page.
+- `PersonCard.jsx` — 4:5 portrait + name/title; bio modal if `bio` is set, else LinkedIn.
+- `PhotoBand.jsx`, `Navbar.jsx`, `Footer.jsx`
 
 Routes: `/` `/team` `/projects` `/apply` `/events` `/venture-capital` `/partners`
 
@@ -35,52 +43,48 @@ Routes: `/` `/team` `/projects` `/apply` `/events` `/venture-capital` `/partners
 
 ## Design system
 
-Tokens are in `src/index.css` under `@theme`. Use the Tailwind classes, not raw hex.
+Tokens are in `src/index.css` under `@theme`. Use the Tailwind classes, not raw hex. **The palette is locked** (SAO brand review) — don't add colors; use alpha (`white/5`, `ink/70`) of these.
 
 | Token | Value | Use |
 |---|---|---|
 | `ivory` | `#F5EEDD` | light section background |
 | `ink` | `#0A0A0A` | dark section background, body text |
-| `gold` | `#B5942C` | accents, eyebrows, CTAs |
-| `gold-light` | `#D4B66A` | gold hover state |
+| `gold` | `#B5942C` | accents, numerals, CTAs |
+| `gold-light` | `#D4B66A` | gold hover, highlights |
 
-- Display type: `font-serif` (Playfair Display). Body: `font-sans` (Inter).
-- Sections alternate `bg-ivory` and `bg-ink`. Keep that rhythm.
-- Section padding: `py-24` or `py-28`, `px-6`. Containers: `max-w-4xl` / `max-w-5xl` / `max-w-6xl`.
-- Recurring motifs: gold italic eyebrow label above headings; `w-8 h-px bg-gold` divider under headings; grid "hairlines" via `gap-px bg-gold/20` on a bordered parent.
-- Transitions are `duration-200` (interactive) or `duration-300` (hover reveals).
+- Fonts: headings/numerals use `--font-display` (`font-display`; `font-serif` is a legacy alias to the same font). Body, nav, buttons: Inter. **Playfair Display is only the "VCPurdue" wordmark** (`font-wordmark`, Navbar + Footer). To change the heading font, edit `--font-display`, the `--font-serif` alias, and the Google Fonts link in `index.html` — nothing else.
+- Type scale classes (in `index.css`): `type-hero` (~62px desktop, 36px mobile), `type-h2` (44px / 36px), `type-h3`, `type-numeral`. Body is 17px.
+- Gold text only goes on dark backgrounds (it's too faint on ivory); on ivory use ink with a gold rule/underline. Secondary text is `ink/70`+ on ivory and `white/70`+ on ink.
+- Sections alternate `bg-ivory` and `bg-ink`. Section padding `py-24`, `px-6`; containers `max-w-6xl` / `max-w-5xl` / `max-w-4xl`.
+- Visual language mirrors the club's Instagram graphics: black ground, thin gold rules/frames, tracked gold small-caps eyebrows, big gold numerals, numbered gold blocks, cards with a gold left border.
+- Motion: only `Reveal` and small hover transitions. No parallax, scroll-jacking, animated counters, or re-animating.
 
 ## Rules
 
-**Never ship a placeholder URL as a live href.** The Apply button pointed at `forms.gle/placeholder` in three files for months and shipped to production. That's why `ApplyButton` exists and why `applyOpen` / `boilerlinkLive` flags gate those links. If a destination doesn't exist yet, gate it — don't link it.
+**Never ship a placeholder URL as a live href.** The Apply button once pointed at `forms.gle/placeholder` for months. `applyOpen` / `boilerlinkLive` gate those links. If a destination doesn't exist yet, gate it — don't link it.
 
-**Photos use `object-cover` inside a fixed-size container.** Source images are arbitrary aspect ratios. Stretched photos were explicit feedback from the club president.
+**Photos use `object-cover` inside a fixed-ratio box.** Never stretch. Never commit originals — web copies only (max ~2000px long edge, JPEG ~80, under ~500KB; `sips` is fine). Tall group shots: don't crop into thin banners or cut off the front row. Team photos are 4:5 crops with eyes in the upper third; import them in `team.js` (never a raw `/src/...` string path — it breaks in production builds).
+
+**No invented claims or numbers.** Only facts the club has confirmed live in `site.js`. If a stronger number would help, add it to the TODO list at the bottom of `site.js` instead of guessing. Never show per-tier (Analyst/Associate) counts for the current class; the Spring 2026 Charmides numbers are historical and labeled as such.
+
+**Say "VCPurdue" or "Venture Capital Club at Purdue"** — never "Purdue VC" (Purdue policy forbids a club name starting with "Purdue"). The old slogan "Where Founders, Investors & Ventures Converge" belongs to an IU club — never use it.
+
+**VCIC:** "VCPurdue represents Purdue at VCIC." Never say VCPurdue hosts or organizes it. Purdue VCIC is competitors and judges only.
 
 **Don't add dependencies** without asking. The value of this repo to a student org is that the next person can read it.
 
 **Prefer editing config over editing components.** If a task looks like "change the text/people/dates," it's a config edit.
 
-## Current state
+## Current state (Fall 2026)
 
-Applications are **closed** (`applyOpen: false`) — buttons render "Applications Open Soon". BoilerLink registration is pending (`boilerlinkLive: false`) so those buttons are hidden.
+- Applications are **closed** (`applyOpen: false`). `/apply` shows the closed page; the nav says "Recruiting". Next semester's dates are not announced.
+- Fall 2026 class: 98 members, 9 Purdue colleges, 6 project teams across 4 partners (Elevate Ventures, Purdue HIVE, Purdue Research Foundation, Purdue Innovates).
+- VCIC: Purdue VCIC is Sat Oct 24, 2026 (Purdue HIVE, BHEE 270). **After it passes, update `events` and `vcic.path` in `site.js`** (TODO comment is there).
+- BoilerLink registration pending (`boilerlinkLive: false`).
 
 ### Open TODOs
 
-- `src/config/site.js` — real Google Form URL, then `applyOpen: true`
-- `src/config/team.js` — `founders` array is empty; club president asked for Founders/Co-Founders placement but hasn't said who
-- `src/config/team.js` — "Prof. Matthew" needs a last name; no `photo` set on any of the 11 people
-- `src/pages/Apply.jsx` — the 4 recruiting steps have placeholder timing ("First week of classes"), needs real dates
-- Delete orphaned pre-router components: `Hero` `WhoWeAre` `Mission` `Values` `OurWork` `JoinUs` `Team` `Partners` `Events` in `src/components/`. Nothing imports them.
-
-## Club facts (for copy)
-
-- Founded Spring 2026 as a rebrand of SMVF. Legal name change still in progress.
-- ~40 members. Tracks: Analyst → Associate → Senior Associate → Partner (exec board).
-- Exec board of 6 structured as Partners. President: José Sándigo.
-- Partners: Charmides Capital, Elevate Ventures, Purdue Innovates.
-- Advisor: Prof. Fabrício d'Almeida, Daniels School of Business.
-- Spring 2026: 5 Associates + 30+ Analysts ran a research engagement for Charmides Capital — B2B AI software thesis, $500K–$2.5M revenue, teams under 15 — and delivered a Tier 1/2/3 market ranking presented directly to Charmides' investors. This is the club's strongest credibility asset; it's already public on LinkedIn.
-- Contact: pusmvf@purdue.edu (new official address pending SAO approval)
+See the TODO block at the bottom of `src/config/site.js` (testimonials, firm-facing proof and intake process, partner logos with permission, student time commitment / meeting time, club monogram SVG).
 
 ## Voice
 

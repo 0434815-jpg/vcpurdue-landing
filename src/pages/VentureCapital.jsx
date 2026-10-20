@@ -1,5 +1,7 @@
-import { Link } from 'react-router-dom'
-import ApplyButton from '../components/ApplyButton'
+import Button from '../components/Button'
+import Eyebrow from '../components/Eyebrow'
+import Reveal from '../components/Reveal'
+import { stagger } from '../components/stagger'
 
 const companies = [
   { name: 'Airbnb', founded: '2008', investor: 'Sequoia Capital' },
@@ -21,111 +23,142 @@ export default function VentureCapital() {
   return (
     <>
       {/* ---------- HEADER ---------- */}
-      <section className="bg-ivory pt-24 pb-16 px-6 border-b border-gold/20">
-        <div className="max-w-5xl mx-auto">
-          <p className="text-gold text-xs tracking-[0.2em] uppercase mb-6">Primer</p>
-          <h1 className="font-serif text-5xl md:text-7xl font-bold text-ink leading-none">
-            What is <span className="italic text-gold font-normal">Venture Capital?</span>
-          </h1>
+      <section className="border-b border-gold/20 bg-ivory px-6 pb-16 pt-24">
+        <div className="mx-auto max-w-5xl">
+          <Reveal>
+            <Eyebrow className="mb-6">Primer</Eyebrow>
+          </Reveal>
+          <Reveal delay={80}>
+            <h1 className="type-hero max-w-3xl text-ink">
+              What is Venture Capital?
+            </h1>
+          </Reveal>
         </div>
       </section>
 
       {/* ---------- DEFINITION ---------- */}
-      <section className="bg-ivory py-20 px-6 border-b border-gold/20">
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-14">
-          <p className="text-ink text-xl md:text-2xl leading-relaxed">
-            Venture capital is a form of private equity financing where investors provide
-            capital to early-stage, high-potential startups in exchange for equity. But VC
-            is rarely just about money.
-          </p>
-          <blockquote className="border-l border-gold/40 pl-8">
-            <p className="font-serif italic text-ink/70 leading-relaxed">
-              "[Venture capital] is all about figuring out which questions are the right
-              questions to ask, and since we don't have a clue what the right answer is,
-              we're very interested in the process by which the entrepreneur gets to the
-              conclusion that he offers."
+      <section className="border-b border-gold/20 bg-ivory px-6 py-20">
+        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-14 md:grid-cols-2">
+          <Reveal>
+            <p className="text-xl leading-relaxed text-ink md:text-2xl">
+              Venture capital is a form of private equity financing where investors provide
+              capital to early-stage, high-potential startups in exchange for equity. But VC is
+              rarely just about money.
             </p>
-            <cite className="not-italic text-gold text-sm mt-4 block">— Don Valentine</cite>
-          </blockquote>
+          </Reveal>
+          <Reveal delay={120}>
+            <blockquote className="border-l-2 border-gold pl-8">
+              <p className="leading-relaxed text-ink/80">
+                &ldquo;[Venture capital] is all about figuring out which questions are the right
+                questions to ask, and since we don&rsquo;t have a clue what the right answer is,
+                we&rsquo;re very interested in the process by which the entrepreneur gets to the
+                conclusion that he offers.&rdquo;
+              </p>
+              <cite className="mt-4 block text-sm font-semibold not-italic text-ink/70">
+                — Don Valentine
+              </cite>
+            </blockquote>
+          </Reveal>
         </div>
       </section>
 
       {/* ---------- WHAT A VC DOES ---------- */}
-      <section className="bg-ink py-24 px-6">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="font-serif text-4xl md:text-5xl font-bold text-white mb-8">
-            What does a VC actually do?
-          </h2>
-          <p className="text-white/60 text-lg leading-relaxed">
-            Venture capitalists spend their days sourcing deals, conducting due diligence,
-            evaluating business models, and making investment decisions. The job is part
-            research analyst, part psychologist, and part operator — building conviction in
-            founders and markets long before the rest of the world catches on.
-          </p>
+      <section className="bg-ink px-6 py-24 text-white">
+        <div className="mx-auto max-w-3xl">
+          <Reveal>
+            <Eyebrow dark className="mb-5">
+              The job
+            </Eyebrow>
+          </Reveal>
+          <Reveal delay={80}>
+            <h2 className="type-h2 mb-8">What does a VC actually do?</h2>
+          </Reveal>
+          <Reveal delay={160}>
+            <p className="text-lg leading-relaxed text-white/75">
+              Venture capitalists spend their days sourcing deals, conducting due diligence,
+              evaluating business models, and making investment decisions. The job is part
+              research analyst, part psychologist, and part operator — building conviction in
+              founders and markets long before the rest of the world catches on.
+            </p>
+          </Reveal>
         </div>
       </section>
 
       {/* ---------- FAMOUS COMPANIES ---------- */}
-      <section className="bg-ivory py-24 px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="font-serif text-4xl font-bold text-ink mb-4">
-              Household names that started as risky bets
-            </h2>
-            <p className="text-ink/55 text-sm">
-              A few companies that began with venture capital behind them.
-            </p>
+      <section className="bg-ivory px-6 py-24">
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-14">
+            <Reveal>
+              <Eyebrow className="mb-5">Examples</Eyebrow>
+            </Reveal>
+            <Reveal delay={80}>
+              <h2 className="type-h2 mb-4 max-w-3xl">Household names that started as risky bets</h2>
+            </Reveal>
+            <Reveal delay={160}>
+              <p className="text-ink/75">
+                A few companies that began with venture capital behind them.
+              </p>
+            </Reveal>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-gold/20 border border-gold/20">
-            {companies.map(c => (
-              <div key={c.name} className="bg-ivory p-8">
-                <p className="font-serif text-2xl font-bold text-ink mb-3">{c.name}</p>
-                <div className="w-6 h-px bg-gold mb-4" />
-                <p className="text-ink/40 text-xs tracking-wide uppercase mb-1">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {companies.map((c, i) => (
+              <Reveal
+                key={c.name}
+                delay={stagger(i % 3)}
+                className="border border-l-2 border-ink/15 border-l-gold bg-white/50 p-8"
+              >
+                <p className="type-h3 mb-3">{c.name}</p>
+                <p className="mb-1 text-xs font-semibold uppercase tracking-[0.18em] text-ink/65">
                   Founded {c.founded}
                 </p>
-                <p className="text-ink/60 text-sm">Early investor: {c.investor}</p>
-              </div>
+                <p className="text-sm text-ink/80">Early investor: {c.investor}</p>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
       {/* ---------- WHAT MAKES VC DIFFERENT ---------- */}
-      <section className="bg-ink py-24 px-6">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="font-serif text-4xl font-bold text-white text-center mb-16">
-            What makes VC different?
-          </h2>
-          <div className="space-y-px bg-gold/20 border border-gold/20">
+      <section className="bg-ink px-6 py-24 text-white">
+        <div className="mx-auto max-w-4xl">
+          <Reveal>
+            <Eyebrow dark className="mb-5">
+              How it differs
+            </Eyebrow>
+          </Reveal>
+          <Reveal delay={80}>
+            <h2 className="type-h2 mb-12">What makes VC different?</h2>
+          </Reveal>
+          <ol className="space-y-3">
             {differences.map((d, i) => (
-              <div key={d} className="bg-ink p-8 flex gap-8 items-baseline">
-                <span className="font-serif text-gold text-lg shrink-0">
+              <Reveal as="li" key={d} delay={stagger(i)} className="flex bg-white/[0.04]">
+                <span className="font-display flex w-16 shrink-0 items-center justify-center bg-gold text-xl font-bold text-ink">
                   0{i + 1}
                 </span>
-                <p className="text-white/70 text-lg leading-relaxed">{d}</p>
-              </div>
+                <p className="px-6 py-6 text-lg leading-relaxed text-white/85">{d}</p>
+              </Reveal>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
       {/* ---------- CTA ---------- */}
-      <section className="bg-gold py-24 px-6 text-center">
-        <div className="max-w-2xl mx-auto">
-          <h2 className="font-serif text-4xl font-bold text-ink mb-8">
-            Want to learn VC by doing it?
-          </h2>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <ApplyButton variant="ink" />
-            <Link
-              to="/projects"
-              className="inline-block px-8 py-3.5 border border-ink text-ink text-sm font-semibold tracking-wide hover:bg-ink/10 transition-colors duration-200"
-            >
-              See our work
-            </Link>
-          </div>
+      <section className="bg-gold px-6 py-24 text-center">
+        <div className="mx-auto max-w-2xl">
+          <Reveal>
+            <h2 className="type-h2 mb-8 text-ink">Want to learn VC by doing it?</h2>
+          </Reveal>
+          <Reveal delay={100}>
+            <div className="flex flex-col justify-center gap-4 sm:flex-row">
+              <Button to="/apply" variant="ink">
+                Recruiting
+              </Button>
+              <Button to="/projects" variant="outlineInk">
+                See our work
+              </Button>
+            </div>
+          </Reveal>
         </div>
       </section>
     </>
