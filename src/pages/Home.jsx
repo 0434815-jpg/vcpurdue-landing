@@ -14,14 +14,11 @@ import {
   deliverables,
   featuredProject,
   membership,
-  partnershipMailto,
   partners,
   tracks,
 } from '../config/site'
 
 export default function Home() {
-  const fallPartners = partners.filter(p => p.season === 'Fall 2026')
-
   return (
     <>
       {/* ---------- HERO ---------- */}
@@ -136,98 +133,75 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ---------- TWO AUDIENCES ---------- */}
+      {/* ---------- HOW WE WORK ---------- */}
       <section className="bg-ivory px-6 py-24">
         <div className="mx-auto max-w-6xl">
           <Reveal>
-            <Eyebrow className="mb-5">Get involved</Eyebrow>
+            <Eyebrow className="mb-5">What members do</Eyebrow>
           </Reveal>
           <Reveal delay={80}>
-            <h2 className="type-h2 mb-14 max-w-2xl">For students and for venture firms.</h2>
+            <h2 className="type-h2 mb-6">How we work.</h2>
+          </Reveal>
+          <Reveal delay={160}>
+            <p className="mb-16 max-w-2xl text-xl leading-relaxed text-ink/80">
+              Members source companies, run diligence, and present recommendations to venture
+              partners.
+            </p>
           </Reveal>
 
-          <div className="grid gap-6 lg:grid-cols-2">
-            {/* Students */}
-            <Reveal delay={0} className="border border-l-2 border-ink/15 border-l-gold bg-white/50 p-8 md:p-10">
-              <h3 className="type-h3 mb-4">For students</h3>
-              <p className="mb-8 leading-relaxed text-ink/80">
-                Members source companies, run diligence, and present recommendations to venture
-                partners. All majors welcome, and no finance background required.
-              </p>
-
-              <ol className="mb-9 space-y-5">
-                {tracks.map((t, i) => (
-                  <li key={t.tier} className="flex gap-4">
-                    <span className="font-display flex h-9 w-9 shrink-0 items-center justify-center bg-gold text-sm font-bold text-ink">
-                      0{i + 1}
-                    </span>
-                    <div>
-                      <p className="font-display font-bold leading-tight">
-                        {t.tier}{' '}
-                        <span className="ml-1 text-xs font-semibold uppercase tracking-[0.16em] text-ink/60">
-                          {t.tag}
-                        </span>
-                      </p>
-                      <p className="mt-1 text-sm leading-relaxed text-ink/75">{t.description}</p>
-                    </div>
-                  </li>
-                ))}
-              </ol>
-
-              <Button to="/apply" variant="outlineInk">
-                Recruiting
-              </Button>
-            </Reveal>
-
-            {/* Firms */}
-            <Reveal delay={120} className="border border-l-2 border-ink/15 border-l-gold bg-white/50 p-8 md:p-10">
-              <h3 className="type-h3 mb-4">For venture firms</h3>
-              <p className="mb-8 leading-relaxed text-ink/80">
-                We partner with venture firms, accelerators, and founders who want serious
-                research support from a team that treats it like the job it is.
-              </p>
-
-              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-ink/70">
-                What we deliver
-              </p>
-              <ul className="mb-8 space-y-2">
-                {deliverables.map(d => (
-                  <li key={d} className="flex items-center gap-3 font-display font-bold">
-                    <span aria-hidden="true" className="h-px w-5 bg-gold" />
-                    {d}
-                  </li>
-                ))}
-              </ul>
-
-              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-ink/70">
-                Proof
-              </p>
-              <Link
-                to="/projects"
-                className="mb-8 inline-flex items-center gap-2 text-sm font-semibold underline decoration-gold decoration-2 underline-offset-4 transition-colors hover:text-ink/70"
+          <Reveal>
+            <p className="mb-6 text-xs font-semibold uppercase tracking-[0.2em] text-ink/70">
+              The path
+            </p>
+          </Reveal>
+          <ol className="mb-16 grid gap-4 md:grid-cols-3">
+            {tracks.map((t, i) => (
+              <Reveal
+                as="li"
+                key={t.tier}
+                delay={stagger(i)}
+                className="border border-l-2 border-ink/15 border-l-gold bg-white/50 p-7"
               >
-                Read the {featuredProject.partner} engagement <ArrowRight />
-              </Link>
-
-              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-ink/70">
-                Current partners
-              </p>
-              <p className="mb-9 text-sm leading-relaxed text-ink/80">
-                {fallPartners.map(p => p.name).join(', ')}.{' '}
-                <span className="text-ink/65">
-                  Spring 2026: {partners.find(p => p.season === 'Spring 2026')?.name}.
+                <span className="font-display mb-5 flex h-9 w-9 items-center justify-center bg-gold text-sm font-bold text-ink">
+                  0{i + 1}
                 </span>
-              </p>
+                <p className="type-h3 mb-1">{t.tier}</p>
+                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-ink/65">
+                  {t.tag}
+                </p>
+                <p className="text-sm leading-relaxed text-ink/80">{t.description}</p>
+              </Reveal>
+            ))}
+          </ol>
 
-              <div className="flex flex-wrap gap-3">
-                <Button href={partnershipMailto} variant="ink">
-                  Start a conversation
-                </Button>
-                <Button to="/partners" variant="outlineInk">
-                  Our partners
-                </Button>
-              </div>
-            </Reveal>
+          <div className="grid gap-10 border-t border-gold/40 pt-12 lg:grid-cols-[1fr_1.6fr] lg:gap-16">
+            <div>
+              <Reveal>
+                <p className="mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-ink/70">
+                  What we deliver to partners
+                </p>
+              </Reveal>
+              <Reveal delay={80}>
+                <Link
+                  to="/projects"
+                  className="inline-flex items-center gap-2 text-sm font-semibold underline decoration-gold decoration-2 underline-offset-4 transition-colors hover:text-ink/70"
+                >
+                  Read the {featuredProject.partner} engagement <ArrowRight />
+                </Link>
+              </Reveal>
+            </div>
+            <ul className="grid gap-4 sm:grid-cols-3">
+              {deliverables.map((d, i) => (
+                <Reveal
+                  as="li"
+                  key={d}
+                  delay={stagger(i)}
+                  className="border-t-2 border-gold pt-4 font-display text-xl font-bold leading-snug"
+                >
+                  {d}
+                </Reveal>
+              ))}
+            </ul>
           </div>
         </div>
       </section>

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { links, club, boilerlinkLive, partnershipMailto } from '../config/site'
+import { links, club, boilerlinkLive } from '../config/site'
 import { InstagramGlyph, LinkedInGlyph } from './Icons'
 
 const explore = [
@@ -47,11 +47,8 @@ export default function Footer() {
             <p className="mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
               Connect
             </p>
-            <a href={`mailto:${links.email}`} className={`${linkClass} mb-2 block`}>
+            <a href={`mailto:${links.email}`} className={`${linkClass} mb-5 block`}>
               {links.email}
-            </a>
-            <a href={partnershipMailto} className={`${linkClass} mb-5 block`}>
-              Start a conversation (firms)
             </a>
 
             <div className="flex items-center gap-5">

@@ -4,6 +4,7 @@ import Eyebrow from '../components/Eyebrow'
 import Reveal from '../components/Reveal'
 import { stagger } from '../components/stagger'
 import { FactStrip } from '../components/StatStrip'
+import heroPhoto from '../assets/photos/club-apply.jpg'
 import {
   applyDeadline,
   applyOpen,
@@ -14,14 +15,6 @@ import {
   partners,
   tracks,
 } from '../config/site'
-
-// Hero photo for the closed state. Used when src/assets/photos/club-apply.jpg
-// exists (glob so the page still builds, text-only, without it).
-const heroPhotos = import.meta.glob('../assets/photos/club-apply.jpg', {
-  eager: true,
-  import: 'default',
-})
-const heroPhoto = Object.values(heroPhotos)[0]
 
 const fallPartners = partners.filter(p => p.season === 'Fall 2026').map(p => p.name)
 const fallPartnerList = `${fallPartners.slice(0, -1).join(', ')}, and ${fallPartners.at(-1)}`
@@ -93,11 +86,7 @@ function ClosedView() {
     <>
       {/* ---------- HERO ---------- */}
       <section className="bg-ink px-6 text-white">
-        <div
-          className={`mx-auto grid max-w-6xl items-center gap-12 pb-14 pt-14 lg:pb-20 lg:pt-20 ${
-            heroPhoto ? 'lg:grid-cols-[1.1fr_0.9fr] lg:gap-16' : ''
-          }`}
-        >
+        <div className="mx-auto grid max-w-6xl items-center gap-12 pb-14 pt-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:pb-20 lg:pt-20">
           <div>
             <Reveal>
               <Eyebrow dark className="mb-5">
@@ -143,24 +132,22 @@ function ClosedView() {
             </Reveal>
           </div>
 
-          {heroPhoto && (
-            <Reveal delay={450} className="relative">
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 hidden translate-x-3 translate-y-3 border border-gold/60 lg:block"
+          <Reveal delay={450} className="relative">
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 hidden translate-x-3 translate-y-3 border border-gold/60 lg:block"
+            />
+            <div className="relative aspect-[4/5] overflow-hidden bg-white/5">
+              <img
+                src={heroPhoto}
+                alt="VCPurdue's Fall 2026 class gathered on a staircase"
+                className="h-full w-full object-cover"
+                style={{ objectPosition: '50% 70%' }}
+                fetchPriority="high"
               />
-              <div className="relative aspect-[4/5] overflow-hidden bg-white/5">
-                <img
-                  src={heroPhoto}
-                  alt="VCPurdue's Fall 2026 class gathered on a staircase"
-                  className="h-full w-full object-cover"
-                  style={{ objectPosition: '50% 70%' }}
-                  fetchPriority="high"
-                />
-                <div aria-hidden="true" className="absolute inset-0 bg-ink/35" />
-              </div>
-            </Reveal>
-          )}
+              <div aria-hidden="true" className="absolute inset-0 bg-ink/35" />
+            </div>
+          </Reveal>
         </div>
 
         <div className="mx-auto max-w-6xl">

@@ -63,7 +63,7 @@ export default function Team() {
       <Group
         eyebrow="Leadership"
         title="Executive Board"
-        blurb="Six Partners, each owning a function — mirroring the structure of a working venture firm."
+        blurb="The executive board runs the club day to day. Each partner owns one part of it."
         people={executiveBoard}
       />
 

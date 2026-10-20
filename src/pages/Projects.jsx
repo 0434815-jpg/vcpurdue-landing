@@ -166,9 +166,6 @@ export default function Projects() {
               <Button to="/apply" variant="ink">
                 Recruiting
               </Button>
-              <Button to="/partners" variant="outlineInk">
-                Partner With Us
-              </Button>
             </div>
           </Reveal>
         </div>
