@@ -1,46 +1,99 @@
 import Button from '../components/Button'
 import Eyebrow from '../components/Eyebrow'
 import Reveal from '../components/Reveal'
+import SidePhoto from '../components/SidePhoto'
 import { stagger } from '../components/stagger'
-import worksession from '../assets/photos/worksession.jpg'
 import presenting from '../assets/photos/presenting.jpg'
-import vcicAward from '../assets/photos/vcic-award.jpg'
+import clubFormal from '../assets/photos/club-formal.jpg'
 
+// Then/now lines are limited to what a named source states. Sources are the
+// company's own announcement, the investor's own write-up, or a news record.
 const companies = [
-  { name: 'Airbnb', founded: '2008', investor: 'Sequoia Capital' },
-  { name: 'Uber', founded: '2009', investor: 'Benchmark' },
-  { name: 'Facebook', founded: '2004', investor: 'Accel Partners' },
-  { name: 'Apple', founded: '1976', investor: 'Sequoia Capital' },
-  { name: 'Google', founded: '1998', investor: 'Kleiner Perkins' },
-  { name: 'DoorDash', founded: '2013', investor: 'Khosla Ventures' },
+  {
+    name: 'Airbnb',
+    founded: '2008',
+    investor: 'Sequoia Capital',
+    then: 'Sequoia made a $585,000 seed investment in April 2009.',
+    now: 'Public since December 2020.',
+    sources: [
+      { label: 'Sequoia', href: 'https://sequoiacap.com/article/airbnb-ipo-embracing-the-adventure' },
+    ],
+  },
+  {
+    name: 'Uber',
+    founded: '2009',
+    investor: 'Benchmark',
+    then: 'Benchmark led an $11 million Series A in February 2011.',
+    now: 'Public since May 2019 (NYSE).',
+    sources: [
+      {
+        label: 'Fortune',
+        href: 'https://www.fortune.com/2014/06/06/these-are-the-venture-firms-celebrating-ubers-massive-17b-valuation/',
+      },
+      {
+        label: 'Uber',
+        href: 'https://investor.uber.com/news-events/news/press-release-details/2019/Uber-Announces-Pricing-of-Initial-Public-Offering/default.aspx',
+      },
+    ],
+  },
+  {
+    name: 'Facebook',
+    founded: '2004',
+    investor: 'Accel Partners',
+    then: 'Accel invested $12.7 million in 2005.',
+    now: 'Public since May 2012; the company is now Meta.',
+    sources: [
+      { label: 'TechCrunch', href: 'https://techcrunch.com/2010/11/22/accel-partners-fund-ix-facebook-extraordinary/' },
+      { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/Initial_public_offering_of_Facebook' },
+    ],
+  },
+  {
+    name: 'Apple',
+    founded: '1976',
+    investor: 'Sequoia Capital',
+    then: 'Sequoia partnered with Apple in 1978.',
+    now: 'Public since 1980.',
+    sources: [{ label: 'Sequoia', href: 'https://articles.sequoiacap.com/apple-story' }],
+  },
+  {
+    name: 'Google',
+    founded: '1998',
+    investor: 'Kleiner Perkins',
+    then: 'Kleiner Perkins and Sequoia led a $25 million round in June 1999.',
+    now: 'Public since August 2004.',
+    sources: [
+      { label: 'Google release', href: 'https://thenextweb.com/news/googles-press-release' },
+      {
+        label: 'Renaissance Capital',
+        href: 'https://www.renaissancecapital.com/IPO-Center/News/2810/It%E2%80%99s-official-Google-prices-at-%2485-a-share',
+      },
+    ],
+  },
+  {
+    name: 'DoorDash',
+    founded: '2013',
+    investor: 'Khosla Ventures',
+    then: 'A $2.4 million round in 2013 was co-led by Khosla Ventures and Charles River Ventures.',
+    now: 'Public since December 2020 (NYSE).',
+    sources: [
+      {
+        label: 'Y Combinator',
+        href: 'https://www.ycombinator.com/blog/doordasy-yc-s13-raises-2-dollars-dot-4m-to-improve-food-delivery-growing-over-20-percent-weekly/',
+      },
+      {
+        label: 'DoorDash',
+        href: 'https://ir.doordash.com/news/news-details/2020/DoorDash-Announces-Pricing-of-Initial-Public-Offering',
+      },
+    ],
+  },
 ]
 
 const differences = [
-  'Unlike traditional finance, VC rewards judgment, not just analysis.',
+  'Unlike traditional finance, VC rewards judgment as well as analysis.',
   'You bet on people as much as ideas.',
   'Every investment is a long-term relationship.',
-  'Failure is a data point, not a dead end.',
+  'A failed investment is information.',
 ]
-
-// A photo that sits beside a text section (not part of a gallery). `ratio`
-// is the source file's width / height, so nothing is cropped. The offset
-// frame is gold on dark sections, ink on the gold CTA band.
-function SidePhoto({ src, alt, caption, ratio, frame = 'border-gold/60', captionClass = 'text-white/70', className = '' }) {
-  return (
-    <Reveal as="figure" delay={120} className={className}>
-      <div className="relative">
-        <div
-          aria-hidden="true"
-          className={`absolute inset-0 translate-x-3 translate-y-3 border ${frame}`}
-        />
-        <div className="relative overflow-hidden bg-white/5" style={{ aspectRatio: ratio }}>
-          <img src={src} alt={alt} loading="lazy" className="h-full w-full object-cover" />
-        </div>
-      </div>
-      <figcaption className={`mt-7 text-sm ${captionClass}`}>{caption}</figcaption>
-    </Reveal>
-  )
-}
 
 export default function VentureCapital() {
   return (
@@ -93,22 +146,23 @@ export default function VentureCapital() {
               </Eyebrow>
             </Reveal>
             <Reveal delay={80}>
-              <h2 className="type-h2 mb-8">What does a VC actually do?</h2>
+              <h2 className="type-h2 mb-8">What does a VC do?</h2>
             </Reveal>
             <Reveal delay={160}>
               <p className="text-lg leading-relaxed text-white/75">
                 Venture capitalists spend their days sourcing deals, conducting due diligence,
                 evaluating business models, and making investment decisions. The job is part
-                research analyst, part psychologist, and part operator — building conviction in
-                founders and markets long before the rest of the world catches on.
+                research analyst, part psychologist, and part operator: finding founders and
+                markets early.
               </p>
             </Reveal>
           </div>
           <SidePhoto
-            src={worksession}
-            ratio={1400 / 1050}
-            alt="VCPurdue members working a research session around a table"
-            caption="A VCPurdue working session."
+            src={clubFormal}
+            ratio={1200 / 1800}
+            alt="VCPurdue's Fall 2026 class gathered on a staircase"
+            caption="VCPurdue's Fall 2026 class."
+            className="mx-auto w-full max-w-[19rem]"
           />
         </div>
       </section>
@@ -141,7 +195,34 @@ export default function VentureCapital() {
                 <p className="mb-1 text-xs font-semibold uppercase tracking-[0.18em] text-ink/65">
                   Founded {c.founded}
                 </p>
-                <p className="text-sm text-ink/80">Early investor: {c.investor}</p>
+                <p className="mb-4 text-sm text-ink/80">Early investor: {c.investor}</p>
+                <dl className="space-y-2 border-t border-ink/10 pt-4 text-sm leading-relaxed text-ink/85">
+                  <div>
+                    <dt className="inline font-bold">Then: </dt>
+                    <dd className="inline">{c.then}</dd>
+                  </div>
+                  <div>
+                    <dt className="inline font-bold">Now: </dt>
+                    <dd className="inline">{c.now}</dd>
+                  </div>
+                </dl>
+                <p className="mt-4 text-xs text-ink/70">
+                  Sources:{' '}
+                  {c.sources.map((src, j) => (
+                    <span key={src.href}>
+                      {j > 0 && ', '}
+                      <a
+                        href={src.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline decoration-gold decoration-2 underline-offset-2 transition-colors hover:text-ink"
+                      >
+                        {src.label}
+                        <span className="sr-only"> (opens in a new tab)</span>
+                      </a>
+                    </span>
+                  ))}
+                </p>
               </Reveal>
             ))}
           </div>
@@ -183,30 +264,20 @@ export default function VentureCapital() {
 
       {/* ---------- CTA ---------- */}
       <section className="bg-gold px-6 py-24">
-        <div className="mx-auto grid max-w-5xl items-center gap-14 lg:grid-cols-[1fr_0.9fr] lg:gap-20">
-          <div>
-            <Reveal>
-              <h2 className="type-h2 mb-8 text-ink">Want to learn VC by doing it?</h2>
-            </Reveal>
-            <Reveal delay={100}>
-              <div className="flex flex-wrap gap-4">
-                <Button to="/apply" variant="ink">
-                  Recruiting
-                </Button>
-                <Button to="/projects" variant="outlineInk">
-                  See our work
-                </Button>
-              </div>
-            </Reveal>
-          </div>
-          <SidePhoto
-            src={vcicAward}
-            ratio={1179 / 873}
-            alt="VCPurdue team at the Carnegie Mellon Swartz Center"
-            caption="VCPurdue at the Carnegie Mellon Swartz Center."
-            frame="border-ink/60"
-            captionClass="text-ink/75"
-          />
+        <div className="mx-auto max-w-5xl">
+          <Reveal>
+            <h2 className="type-h2 mb-8 text-ink">Want to learn VC by doing it?</h2>
+          </Reveal>
+          <Reveal delay={100}>
+            <div className="flex flex-wrap gap-4">
+              <Button to="/apply" variant="ink">
+                Recruiting
+              </Button>
+              <Button to="/projects" variant="outlineInk">
+                See our work
+              </Button>
+            </div>
+          </Reveal>
         </div>
       </section>
     </>

@@ -84,10 +84,16 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col justify-between gap-3 border-t border-white/10 pt-6 text-xs tracking-wide text-white/60 sm:flex-row">
-          <p>© VCPurdue 2026</p>
-          <p>{club.legalNote}</p>
-          <p>Photography by Ruby Kivett</p>
+        <div className="grid gap-6 border-t border-white/10 pt-6 text-xs leading-relaxed tracking-wide text-white/60 md:grid-cols-[1fr_auto] md:gap-12">
+          <div className="max-w-xl space-y-1">
+            <p>{club.legalNote}</p>
+            <p>{club.trademarkNote}</p>
+          </div>
+          <div className="space-y-1 md:text-right">
+            <p>© VCPurdue 2026</p>
+            <p>{club.campusPhotoCredit}</p>
+            <p>{club.clubPhotoCredit}</p>
+          </div>
         </div>
       </div>
     </footer>

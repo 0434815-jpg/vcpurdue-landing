@@ -5,27 +5,50 @@ import LinkCard from '../components/LinkCard'
 import Reveal from '../components/Reveal'
 import { stagger } from '../components/stagger'
 import { ArrowRight } from '../components/Icons'
-import { deliverables, featuredProject, partnershipMailto, partners } from '../config/site'
+import expo from '../assets/photos/expo.jpg'
+import SidePhoto from '../components/SidePhoto'
+import {
+  deliverables,
+  featuredProject,
+  hostProof,
+  links,
+  partnershipMailto,
+  partners,
+} from '../config/site'
 
 export default function Partners() {
   return (
     <>
       <section className="bg-ink px-6 py-24 text-white">
-        <div className="mx-auto max-w-5xl">
-          <Reveal>
-            <Eyebrow dark className="mb-5">
-              Who we work with
-            </Eyebrow>
-          </Reveal>
-          <Reveal delay={80}>
-            <h1 className="type-hero mb-6">Partners</h1>
-          </Reveal>
-          <Reveal delay={160}>
-            <p className="max-w-2xl text-lg leading-relaxed text-white/75">
-              Our partnerships are what separate VCPurdue from a case-study club. These are the
-              firms whose mandates our members actually work.
-            </p>
-          </Reveal>
+        <div className="mx-auto grid max-w-5xl items-center gap-14 lg:grid-cols-[1.25fr_0.75fr] lg:gap-16">
+          <div>
+            <Reveal>
+              <Eyebrow dark className="mb-5">
+                Who we work with
+              </Eyebrow>
+            </Reveal>
+            <Reveal delay={80}>
+              <h1 className="type-hero mb-6">Partners</h1>
+            </Reveal>
+            <Reveal delay={160}>
+              <p className="max-w-2xl text-lg leading-relaxed text-white/75">
+                These are the firms and campus groups our members work with.
+              </p>
+            </Reveal>
+            <Reveal delay={240}>
+              <p className="mt-6 max-w-2xl border-l-2 border-gold pl-5 leading-relaxed text-white/85">
+                {hostProof}
+              </p>
+            </Reveal>
+          </div>
+          <SidePhoto
+            src={expo}
+            ratio={1055 / 1400}
+            alt="Two VCPurdue members in front of the Purdue Innovates Startup and Technology Expo screen"
+            caption="At the Purdue Innovates Startup and Technology Expo."
+            className="mx-auto w-full max-w-[17rem]"
+            eager
+          />
         </div>
       </section>
 
@@ -72,9 +95,8 @@ export default function Partners() {
             </Reveal>
             <Reveal delay={160}>
               <p className="mb-9 leading-relaxed text-white/75">
-                We partner with venture firms, accelerators, and founders who want serious
-                research support — market maps, competitive landscapes, diligence memos — from a
-                team that treats it like the job it is.
+                We do research for venture firms, accelerators, and founders: market maps,
+                competitive landscapes, diligence memos.
               </p>
             </Reveal>
             <Reveal delay={240}>
@@ -82,11 +104,17 @@ export default function Partners() {
                 <Button href={partnershipMailto} variant="gold">
                   Start a conversation
                 </Button>
+                <a
+                  href={`mailto:${links.email}`}
+                  className="text-sm font-semibold text-white underline decoration-gold/60 underline-offset-8 transition-colors hover:text-gold"
+                >
+                  {links.email}
+                </a>
                 <Link
                   to="/projects"
                   className="inline-flex items-center gap-2 text-sm font-semibold text-gold underline decoration-gold/60 underline-offset-8 transition-colors hover:text-gold-light"
                 >
-                  Read the {featuredProject.partner} engagement <ArrowRight />
+                  Read the {featuredProject.partner} case study <ArrowRight />
                 </Link>
               </div>
             </Reveal>

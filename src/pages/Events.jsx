@@ -1,9 +1,12 @@
 import Button from '../components/Button'
 import Eyebrow from '../components/Eyebrow'
 import Reveal from '../components/Reveal'
+import SidePhoto from '../components/SidePhoto'
 import { stagger } from '../components/stagger'
 import { StatStrip } from '../components/StatStrip'
 import vcicStage from '../assets/photos/vcic-stage.jpg'
+import vcicAward from '../assets/photos/vcic-award.jpg'
+import bellTower from '../assets/photos/campus-bell-tower.jpg'
 import { events, vcic } from '../config/site'
 
 export default function Events() {
@@ -42,6 +45,11 @@ export default function Events() {
                 <p className="mt-1 text-sm text-ink/75">{e.location}</p>
               </div>
               <div>
+                {e.host && (
+                  <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-ink/70">
+                    {e.host}
+                  </p>
+                )}
                 <h2 className="type-h3 mb-3">{e.title}</h2>
                 <p className="mb-5 max-w-2xl leading-relaxed text-ink/80">{e.description}</p>
                 {e.note && (
@@ -62,6 +70,17 @@ export default function Events() {
         </div>
       </section>
 
+      {/* ---------- CAMPUS DIVIDER (only campus photo besides the homepage hero) ---------- */}
+      <div className="h-48 overflow-hidden border-y border-gold/40 bg-ink sm:h-60 lg:h-72">
+        <img
+          src={bellTower}
+          alt="Purdue's Bell Tower among fall leaves"
+          loading="lazy"
+          className="h-full w-full object-cover"
+          style={{ objectPosition: '50% 43%' }}
+        />
+      </div>
+
       {/* ---------- ABOUT VCIC ---------- */}
       <section className="bg-ink px-6 py-24 text-white">
         <div className="mx-auto max-w-5xl">
@@ -80,7 +99,7 @@ export default function Events() {
               </Reveal>
               <Reveal delay={240}>
                 <p className="font-display mb-8 text-xl font-bold text-gold-light">
-                  {vcic.represent}
+                  {vcic.hosted} {vcic.represent}
                 </p>
               </Reveal>
               <Reveal delay={300}>
@@ -127,25 +146,40 @@ export default function Events() {
             </p>
           </Reveal>
 
-          <Reveal>
-            <Eyebrow dark className="mb-8">
-              Purdue&rsquo;s path to Global Finals
-            </Eyebrow>
-          </Reveal>
-          <ol className="space-y-3">
-            {vcic.path.map((s, i) => (
-              <Reveal as="li" key={s.step} delay={stagger(i)} className="flex bg-white/[0.04]">
-                <span className="font-display flex w-16 shrink-0 items-center justify-center bg-gold text-xl font-bold text-ink sm:w-24 sm:text-2xl">
-                  {s.step}
-                </span>
-                <div className="px-5 py-5 sm:px-8 sm:py-6">
-                  <p className="type-h3 mb-1">{s.title}</p>
-                  <p className="text-white/80">{s.date}</p>
-                  <p className="text-sm text-white/65">{s.place}</p>
-                </div>
+          <div className="grid items-start gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-14">
+            <div>
+              <Reveal>
+                <Eyebrow dark className="mb-8">
+                  Purdue&rsquo;s path to Global Finals
+                </Eyebrow>
               </Reveal>
-            ))}
-          </ol>
+              <ol className="space-y-3">
+                {vcic.path.map((s, i) => (
+                  <Reveal as="li" key={s.step} delay={stagger(i)} className="flex bg-white/[0.04]">
+                    <span className="font-display flex w-16 shrink-0 items-center justify-center bg-gold text-xl font-bold text-ink sm:w-24 sm:text-2xl">
+                      {s.step}
+                    </span>
+                    <div className="px-5 py-5 sm:px-8 sm:py-6">
+                      <p className="type-h3 mb-1">{s.title}</p>
+                      <p className="text-white/80">{s.date}</p>
+                      <p className="text-sm text-white/65">{s.place}</p>
+                      {s.host && (
+                        <p className="mt-2 text-xs font-semibold uppercase tracking-[0.16em] text-gold-light">
+                          {s.host}
+                        </p>
+                      )}
+                    </div>
+                  </Reveal>
+                ))}
+              </ol>
+            </div>
+            <SidePhoto
+              src={vcicAward}
+              ratio={1179 / 873}
+              alt="VCPurdue team at the Carnegie Mellon Swartz Center"
+              caption="VCPurdue at the Carnegie Mellon Swartz Center."
+            />
+          </div>
         </div>
       </section>
     </>

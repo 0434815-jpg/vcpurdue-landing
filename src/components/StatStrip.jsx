@@ -62,26 +62,25 @@ export function FactStrip({ items, className = '' }) {
   )
 }
 
-// Three numerals inside a thin gold frame, with a caption underneath
-// (the Spring 2026 Charmides numbers). Dark backgrounds only.
-export function FramedStats({ items, caption, className = '' }) {
+// Numerals stacked vertically between thin gold rules (the Spring 2026
+// Charmides numbers). Dark backgrounds only.
+export function StatStack({ items, className = '' }) {
   return (
-    <Reveal delay={160} className={`border border-gold/50 ${className}`}>
-      <dl className="grid divide-x divide-white/15" style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` }}>
-        {items.map(s => (
-          <div key={s.label} className="flex flex-col px-3 py-8 text-center sm:px-6 sm:py-10">
-            <dt className="order-2 mt-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/70 sm:text-xs">
-              {s.label}
-            </dt>
-            <dd className="type-numeral text-4xl text-gold sm:text-5xl">{s.value}</dd>
-          </div>
-        ))}
-      </dl>
-      {caption && (
-        <p className="border-t border-white/15 px-6 py-4 text-center text-xs uppercase tracking-[0.18em] text-white/60">
-          {caption}
-        </p>
-      )}
-    </Reveal>
+    <dl className={`border-t border-gold/50 ${className}`}>
+      {items.map((s, i) => (
+        <Reveal
+          key={s.label}
+          delay={stagger(i)}
+          className="flex items-baseline gap-6 border-b border-gold/50 py-5 sm:py-6"
+        >
+          <dt className="order-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/75 sm:text-sm">
+            {s.label}
+          </dt>
+          <dd className="type-numeral order-1 w-28 shrink-0 text-5xl text-gold sm:w-36 sm:text-6xl">
+            {s.value}
+          </dd>
+        </Reveal>
+      ))}
+    </dl>
   )
 }

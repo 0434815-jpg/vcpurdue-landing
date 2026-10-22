@@ -52,6 +52,14 @@ export const club = {
   // name STARTING with "Purdue", so never shorten to "Purdue VC".
   fullName: 'Venture Capital Club at Purdue',
   legalNote: 'An independent student organization at Purdue University.',
+  // Shown under legalNote in the footer on every page.
+  trademarkNote:
+    "'Purdue' is a trademark of Purdue University. This site is run by students and is not endorsed by Purdue University.",
+  // Campus photos (Purdue Marketing's public PhotoShelter gallery) are for
+  // non-commercial use and must not imply Purdue endorsement, sponsorship,
+  // or affiliation. Credit shown in the footer on every page.
+  campusPhotoCredit: 'Campus photography: Purdue University Marketing and Communications.',
+  clubPhotoCredit: 'Photography by Ruby Kivett',
   school: 'Mitchell E. Daniels, Jr. School of Business',
   founded: 'Spring 2026',
   // Fall 2026 class. Update all four together each semester.
@@ -136,8 +144,9 @@ export const partners = [
 // ---- EVENTS ------------------------------------------------
 // TODO (after Saturday, Oct 24, 2026): Purdue VCIC has passed. Replace
 // that entry with the result (or remove it), and update `vcic.path` so
-// the Midwest Regional becomes the next step. Keep the line "VCPurdue
-// represents Purdue at VCIC" — never say VCPurdue hosts or organizes it.
+// the Midwest Regional becomes the next step. The Oct 24 internal round is
+// hosted by VCPurdue; the Midwest Regional and Global Finals are run by
+// VCIC, where VCPurdue represents Purdue.
 export const events = [
   {
     title: 'Purdue VCIC',
@@ -145,7 +154,8 @@ export const events = [
     time: '8:15 AM – 4:00 PM',
     location: 'Purdue HIVE, BHEE 270',
     description:
-      'The Purdue round of VCIC. Student teams act as VCs: they diligence three real startups, then pitch an investment to a panel of real VC judges. VCPurdue represents Purdue at VCIC.',
+      'The Purdue round of VCIC, hosted by VCPurdue. Student teams act as VCs: they diligence three real startups, then pitch an investment to a panel of real VC judges.',
+    host: 'Hosted by VCPurdue',
     note: 'Competitors and judges only. Not open to the public.',
     href: 'https://www.vcic.org/events/2027-events/2027-internal-events/2027-undergraduate-purdue-internal-2/',
     linkLabel: 'Official VCIC page',
@@ -161,12 +171,21 @@ export const events = [
 
 // VCIC explainer + Purdue's path. Stats are from vcic.org.
 // Don't add a team count.
+// Judges are listed on the official VCIC page (checked Oct 20, 2026): Elevate
+// Ventures (Landon Young), Purdue Research Foundation (Richard Sikora), and the
+// Indiana Economic Development Corporation (Ryan Locke), plus Purdue faculty.
+// The page doesn't call them "investors", so the line says "representatives".
+// Re-check the page before the Oct 24 event; judges can change.
+export const hostProof =
+  'Host of the Purdue VCIC, whose judges include representatives of Elevate Ventures, Purdue Research Foundation, and the Indiana Economic Development Corporation.'
+
 export const vcic = {
   officialUrl:
     'https://www.vcic.org/events/2027-events/2027-internal-events/2027-undergraduate-purdue-internal-2/',
   sourceUrl: 'https://www.vcic.org',
   about:
     "VCIC is the world's largest venture capital competition. Student teams act as VCs: they diligence three real startups, then pitch an investment to a panel of real VC judges.",
+  hosted: 'VCPurdue hosts the Purdue VCIC on October 24.',
   represent: 'VCPurdue represents Purdue at VCIC.',
   stats: [
     { value: '1998', label: 'First VCIC' },
@@ -179,6 +198,7 @@ export const vcic = {
       title: 'Purdue VCIC',
       date: 'Saturday, October 24, 2026',
       place: 'Purdue HIVE, BHEE 270',
+      host: 'Hosted by VCPurdue',
     },
     {
       step: '02',
@@ -199,32 +219,49 @@ export const vcic = {
 // ---- PROJECTS / TRACK RECORD -------------------------------
 // Spring 2026 case study. These numbers are historical (Spring 2026),
 // not the current roster — never reuse them as current member counts.
+// Only the facts below go on the site. No company names, no sectors beyond
+// "B2B AI software", no outcomes or counts that aren't listed here.
 export const featuredProject = {
   partner: 'Charmides Capital',
   term: 'Spring 2026',
-  headline: 'We ranked the universe.',
-  summary:
-    'Charmides gave us their thesis and asked which companies fit it. Four months later we came back with a ranked list and presented it to their investors.',
+  role: 'Venture Partner',
+  // From charmidescapital.com (checked Oct 22, 2026): "a venture capital fund
+  // that co-invests with institutional investors in Indiana and the Midwest",
+  // investing in early-stage B2B software companies with high growth
+  // potential. The site does not say "seed" or "Series A".
+  about:
+    'An Indiana venture capital fund that co-invests with institutional investors across the Midwest. It backs early-stage B2B software companies with high growth potential.',
+  brief:
+    'Find and rank pre-seed and seed startups that fit their thesis: innovative software with category-disruption potential.',
+  // The screening lens we published (matches our LinkedIn).
   thesis: [
     'B2B AI software',
     '$500K – $2.5M revenue',
     'Teams under 15',
     'Product, not services',
   ],
-  deliverable:
-    'Every company sorted into Tier 1, Tier 2, or Tier 3, with a written read on everything that fell outside.',
-  team: '5 Associates. 30+ Analysts. One investment board.',
   stats: [
     { value: '5', label: 'Associates' },
     { value: '30+', label: 'Analysts' },
+    { value: '4', label: 'Project teams' },
     { value: '4', label: 'Months' },
   ],
-  timeline: [
-    { month: 'January', milestone: 'Alliances forged' },
-    { month: 'February', milestone: 'Team aligned' },
-    { month: 'March', milestone: 'Deep research' },
-    { month: 'April', milestone: 'Execution' },
+  // Optional: total companies recommended. Leave '' until the club confirms
+  // a number; when set, it shows as a numeral on the "Top picks" stage.
+  companiesRecommended: '',
+  delivered: [
+    'Each of four teams screened the market and put forward its top picks',
+    'One-page snapshots on every company, deeper memos on the top picks',
+    'A shared tracker so no two analysts duplicated work',
+    'A shortlist Charmides used for screening and follow-ups',
   ],
+  timeline: [
+    { when: 'January', what: 'Launch, teams formed' },
+    { when: 'March 11', what: 'Partner meeting with Charmides and speaker panel' },
+    { when: 'March 25', what: 'Second speaker panel' },
+    { when: 'April', what: "Final rankings presented to Charmides' investors" },
+  ],
+  note: "Company names stay confidential. That's Charmides' pipeline, not ours to share.",
 }
 
 // Fall 2026: 6 project teams across 4 partners. `partner` must match a
@@ -269,39 +306,30 @@ export const deliverables = [
 ]
 
 // ---- MEMBER TRACKS -----------------------------------------
+// The path members move along, in order. Shown on the homepage.
 export const tracks = [
   {
     tier: 'Analyst',
     tag: 'Entry',
     description:
-      'Learn the fundamentals — how to read a deck, size a market, pressure-test traction, and write a first-pass memo.',
-    points: [
-      'Onboarding curriculum: term sheets, cap tables, sourcing',
-      'Pair with an Associate on live diligence',
-      'Contribute research to a partner engagement',
-    ],
+      'Learn the fundamentals: reading a deck, sizing a market, testing traction, writing a first-pass memo.',
   },
   {
     tier: 'Associate',
     tag: 'Core',
     description:
       'Lead diligence threads, build financial models, and own deal updates from sourcing through investment committee.',
-    points: [
-      'Lead memos through the IC pipeline',
-      'Own founder calls and market deep-dives',
-      'Compete on VCIC teams',
-    ],
   },
   {
     tier: 'Senior Associate',
     tag: 'Advanced',
     description:
       'Drive deal flow strategy, coach Associates, and represent the club to founders, operators, and external partners.',
-    points: [
-      'Shape sector theses and sourcing strategy',
-      'Liaise directly with partner firms',
-      'Path to the Partner-level Executive Board',
-    ],
+  },
+  {
+    tier: 'Executive Board',
+    tag: 'Leadership',
+    description: 'Partners who run the club, each owning one function.',
   },
 ]
 

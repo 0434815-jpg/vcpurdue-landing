@@ -52,9 +52,8 @@ export default function Team() {
           </Reveal>
           <Reveal delay={160}>
             <p className="max-w-2xl text-lg leading-relaxed text-white/75">
-              VCPurdue is structured like the firms our members go on to join. Six Partners run
-              the organization, Senior Associates lead engagements, and every member works real
-              deals.
+              Six Partners run the club. Senior Associates lead engagements. Every member works on
+              a project team.
             </p>
           </Reveal>
         </div>

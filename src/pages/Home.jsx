@@ -2,17 +2,17 @@ import { Link } from 'react-router-dom'
 import Button from '../components/Button'
 import Eyebrow from '../components/Eyebrow'
 import LinkCard from '../components/LinkCard'
-import PhotoBand from '../components/PhotoBand'
 import Reveal from '../components/Reveal'
 import { stagger } from '../components/stagger'
 import SplitBar from '../components/SplitBar'
-import { FramedStats, StatStrip } from '../components/StatStrip'
+import { StatStack, StatStrip } from '../components/StatStrip'
 import { ArrowRight } from '../components/Icons'
-import clubFormal from '../assets/photos/club-formal.jpg'
+import memorialUnion from '../assets/photos/campus-memorial-union.jpg'
 import {
   club,
   deliverables,
   featuredProject,
+  hostProof,
   membership,
   partners,
   tracks,
@@ -22,25 +22,40 @@ export default function Home() {
   return (
     <>
       {/* ---------- HERO ---------- */}
-      <section className="bg-ink px-6 text-white">
-        <div className="mx-auto grid max-w-6xl items-center gap-12 pb-14 pt-14 lg:grid-cols-[1.25fr_0.75fr] lg:gap-14 lg:pb-20 lg:pt-20">
-          <div>
-            <Reveal>
-              <Eyebrow dark>{club.fullName}</Eyebrow>
-            </Reveal>
-            {/* Official slogan is "The Bridge Between Founders, Startups &
-                Investors." (footer). The old line ("Where Founders,
-                Investors & Ventures Converge") belongs to an IU club —
-                José flagged it Aug 21. Do not reuse it. */}
+      {/* Full-bleed campus photo (Purdue Marketing, non-commercial use; see
+          the footer credit). The entrance sits near the middle of the frame,
+          so the text stays up and to the left over the sky, and on narrow
+          screens object-position keeps the entrance centered. */}
+      <section className="bg-ink text-white">
+        <div className="relative h-[calc(100svh-4rem)] max-h-[56rem] min-h-[34rem] overflow-hidden">
+          <img
+            src={memorialUnion}
+            alt="Purdue Memorial Union at dusk, lit from within"
+            className="absolute inset-0 h-full w-full object-cover"
+            style={{ objectPosition: '50% 50%' }}
+            fetchPriority="high"
+          />
+          {/* Darkens the sky behind the text so white type passes contrast. */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-gradient-to-b from-ink/85 via-ink/45 to-ink/10 lg:bg-gradient-to-r lg:from-ink/80 lg:via-ink/40 lg:to-transparent"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-ink/70 to-transparent"
+          />
+
+          <div className="relative h-full px-6">
+          <div className="mx-auto flex h-full max-w-6xl flex-col justify-start pt-12 sm:pt-16 lg:pt-20">
             <Reveal delay={100}>
-              <h1 className="type-hero mb-6 mt-5">
-                Research startups. Build investment conviction.
+              <h1 className="type-hero max-w-[15ch] sm:max-w-[18ch] lg:max-w-[19ch] lg:text-[3.25rem]">
+                The Bridge Between Founders, Startups &amp; Investors.
               </h1>
             </Reveal>
             <Reveal delay={200}>
-              <p className="mb-9 max-w-xl text-lg leading-relaxed text-white/75 lg:text-xl">
-                Purdue&rsquo;s student-led venture capital organization. {club.memberCount}&nbsp;members
-                source companies, run diligence, and present recommendations to venture partners.
+              <p className="mb-8 mt-5 max-w-md text-lg leading-relaxed text-white/90 lg:max-w-lg lg:text-xl">
+                Purdue&rsquo;s student-led venture capital organization. Members source startups,
+                run diligence, and present recommendations to venture partners.
               </p>
             </Reveal>
             <Reveal delay={300}>
@@ -48,38 +63,25 @@ export default function Home() {
                 <Button to="/projects" variant="gold">
                   Our Work
                 </Button>
-                <Button to="/partners" variant="outlineGold">
+                <Button to="/partners" variant="outlineWhite">
                   Partner With Us
                 </Button>
               </div>
             </Reveal>
           </div>
-
-          <Reveal delay={450} className="relative">
-            <div
-              aria-hidden="true"
-              className="absolute -inset-0 hidden translate-x-3 translate-y-3 border border-gold/60 lg:block"
-            />
-            <div className="relative aspect-[4/5] overflow-hidden bg-white/5">
-              <img
-                src={clubFormal}
-                alt="VCPurdue's Fall 2026 class gathered on a staircase"
-                className="h-full w-full object-cover"
-                style={{ objectPosition: '50% 100%' }}
-                fetchPriority="high"
-              />
-            </div>
-          </Reveal>
+          </div>
         </div>
 
-        <div className="mx-auto max-w-6xl">
-          <StatStrip
-            items={[
-              { value: club.memberCount, label: 'Members', note: club.memberLabel },
-              { value: club.colleges, label: 'Purdue colleges' },
-              { value: club.projectTeams, label: 'Project teams' },
-            ]}
-          />
+        <div className="px-6">
+          <div className="mx-auto max-w-6xl">
+            <StatStrip
+              items={[
+                { value: club.memberCount, label: 'Members', note: club.memberLabel },
+                { value: club.colleges, label: 'Purdue colleges' },
+                { value: club.projectTeams, label: 'Project teams' },
+              ]}
+            />
+          </div>
         </div>
       </section>
 
@@ -91,9 +93,8 @@ export default function Home() {
           </Reveal>
           <Reveal delay={80}>
             <p className="font-display text-2xl font-semibold leading-snug tracking-tight text-ink md:text-[2rem]">
-              Most students learn investing from a case study. Ours learn it by sourcing deals,
-              running diligence, and making a recommendation someone actually acts on. The work is
-              real, so the reps count.
+              Most students learn investing from a case study. Members learn by doing the work:
+              sourcing deals, running diligence, and making recommendations to venture partners.
             </p>
           </Reveal>
         </div>
@@ -105,15 +106,15 @@ export default function Home() {
           <div>
             <Reveal>
               <Eyebrow dark className="mb-5">
-                {featuredProject.term} · {featuredProject.partner}
+                {featuredProject.term} · {featuredProject.role}
               </Eyebrow>
             </Reveal>
             <Reveal delay={80}>
-              <h2 className="type-h2 mb-6">{featuredProject.headline}</h2>
+              <h2 className="type-h2 mb-6">{featuredProject.partner}</h2>
             </Reveal>
             <Reveal delay={160}>
               <p className="mb-8 max-w-xl text-lg leading-relaxed text-white/75">
-                {featuredProject.summary}
+                {featuredProject.brief}
               </p>
             </Reveal>
             <Reveal delay={240}>
@@ -121,15 +122,12 @@ export default function Home() {
                 to="/projects"
                 className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-gold underline decoration-gold/60 underline-offset-8 transition-colors duration-200 hover:text-gold-light"
               >
-                Read the full engagement <ArrowRight />
+                Read the case study <ArrowRight />
               </Link>
             </Reveal>
           </div>
 
-          <FramedStats
-            items={featuredProject.stats}
-            caption={`${featuredProject.term} engagement`}
-          />
+          <StatStack items={featuredProject.stats} />
         </div>
       </section>
 
@@ -154,7 +152,7 @@ export default function Home() {
               The path
             </p>
           </Reveal>
-          <ol className="mb-16 grid gap-4 md:grid-cols-3">
+          <ol className="mb-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {tracks.map((t, i) => (
               <Reveal
                 as="li"
@@ -186,7 +184,7 @@ export default function Home() {
                   to="/projects"
                   className="inline-flex items-center gap-2 text-sm font-semibold underline decoration-gold decoration-2 underline-offset-4 transition-colors hover:text-ink/70"
                 >
-                  Read the {featuredProject.partner} engagement <ArrowRight />
+                  Read the {featuredProject.partner} case study <ArrowRight />
                 </Link>
               </Reveal>
             </div>
@@ -203,6 +201,10 @@ export default function Home() {
               ))}
             </ul>
           </div>
+
+          <Reveal className="mt-12 border-l-2 border-gold pl-6">
+            <p className="max-w-3xl text-lg leading-relaxed text-ink/85">{hostProof}</p>
+          </Reveal>
         </div>
       </section>
 
@@ -242,9 +244,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* ---------- PHOTOS ---------- */}
-      <PhotoBand />
 
       {/* ---------- PARTNERS STRIP ---------- */}
       <section className="border-t border-gold/20 bg-ivory px-6 pb-24 pt-20">

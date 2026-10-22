@@ -22,7 +22,7 @@ const fallPartnerList = `${fallPartners.slice(0, -1).join(', ')}, and ${fallPart
 // Closed-state "why join": only facts that are already on the site.
 const whyJoin = [
   {
-    title: 'Real work with real partners',
+    title: 'Partner projects',
     body: `${club.projectTeams} project teams across ${fallPartners.length} partners this fall: ${fallPartnerList}.`,
   },
   {
@@ -44,14 +44,14 @@ const whyJoin = [
 const faqs = [
   {
     q: 'Do I need a finance or business background?',
-    a: `No. We recruit from every major on campus, and ${membership.outsideBusiness} of our members come from outside the business school. Our onboarding curriculum covers term sheets, cap tables, and sourcing from the ground up. What matters is curiosity and follow-through.`,
+    a: `No. We recruit from every major on campus, and ${membership.outsideBusiness} of our members come from outside the business school. We look for curiosity and follow-through.`,
   },
   {
     q: 'What track will I join?',
     a: 'New members join as Analysts. Analysts who take on more scope move to Associate, then Senior Associate. Senior Associates have a path onto the Partner-level Executive Board.',
   },
   {
-    q: 'Do members actually work on real deals?',
+    q: 'Do members work on real deals?',
     a: `Yes. Last spring, Charmides Capital gave us their thesis and asked which companies fit it. Our members ranked the market and presented to their investors. This fall, ${club.projectTeams} project teams are working with ${fallPartners.length} partners.`,
   },
 ]
@@ -227,14 +227,14 @@ const openSteps = [
     title: 'Interview',
     when: 'After applications close',
     detail:
-      'A conversation with members of the Executive Board. We care how you think, not what you already know.',
+      'A conversation with members of the Executive Board. We care how you think more than what you already know.',
   },
   {
     step: '04',
     title: 'Onboarding',
     when: 'Before projects kick off',
     detail:
-      'New Analysts join a project team and start the curriculum right away — term sheets, cap tables, and sourcing from the ground up.',
+      'New Analysts join a project team before projects kick off.',
   },
 ]
 
@@ -310,9 +310,9 @@ function OpenView() {
             </Eyebrow>
           </Reveal>
           <Reveal delay={80}>
-            <h2 className="type-h2 mb-12">Three tracks.</h2>
+            <h2 className="type-h2 mb-12">The path.</h2>
           </Reveal>
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {tracks.map((t, i) => (
               <Reveal
                 key={t.tier}
@@ -323,15 +323,7 @@ function OpenView() {
                   {t.tag}
                 </p>
                 <h3 className="type-h3 mb-4">{t.tier}</h3>
-                <p className="mb-6 text-sm leading-relaxed text-white/75">{t.description}</p>
-                <ul className="space-y-2">
-                  {t.points.map(pt => (
-                    <li key={pt} className="flex gap-3 text-sm leading-relaxed text-white/70">
-                      <span aria-hidden="true" className="mt-2.5 h-px w-3 shrink-0 bg-gold" />
-                      {pt}
-                    </li>
-                  ))}
-                </ul>
+                <p className="text-sm leading-relaxed text-white/75">{t.description}</p>
               </Reveal>
             ))}
           </div>

@@ -7,20 +7,20 @@
   --color-ink: #0A0A0A;
 
   /* Body, nav, buttons. */
-  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-sans: 'Lato', system-ui, sans-serif;
 
   /* Headings and big numerals. To change the heading font, change this
      token, the --font-serif alias below, and the Google Fonts link in
      index.html. */
-  --font-display: 'Manrope', 'Inter', system-ui, sans-serif;
+  --font-display: 'Lora', Georgia, serif;
 
   /* Legacy alias: older markup uses `font-serif` for headings. It points
      at the display font so those pages follow the token above without
      per-component edits. Keep it identical to --font-display. */
-  --font-serif: 'Manrope', 'Inter', system-ui, sans-serif;
+  --font-serif: 'Lora', Georgia, serif;
 
-  /* Only the "VCPurdue" wordmark (Navbar + Footer) uses Playfair. */
-  --font-wordmark: 'Playfair Display', Georgia, serif;
+  /* The "VCPurdue" wordmark (Navbar + Footer). Same family as headings. */
+  --font-wordmark: 'Lora', Georgia, serif;
 }
 
 html {
@@ -35,8 +35,8 @@ html {
 
 body {
   font-family: var(--font-sans);
-  font-size: 1.0625rem; /* 17px */
-  line-height: 1.65;
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.6;
   background-color: #F5EEDD;
   color: #0A0A0A;
   -webkit-font-smoothing: antialiased;
@@ -67,7 +67,7 @@ body {
     font-weight: 700;
     font-size: clamp(2.25rem, 5.4vw, 3.875rem);
     line-height: 1.05;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.015em;
   }
 
   .type-h2 {
