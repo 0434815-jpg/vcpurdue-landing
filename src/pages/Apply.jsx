@@ -1,199 +1,350 @@
 import ApplyButton from '../components/ApplyButton'
-import { tracks, links, boilerlinkLive, applyDeadline } from '../config/site'
+import Button from '../components/Button'
+import Eyebrow from '../components/Eyebrow'
+import Reveal from '../components/Reveal'
+import { stagger } from '../components/stagger'
+import { FactStrip } from '../components/StatStrip'
+import heroPhoto from '../assets/photos/club-apply.jpg'
+import {
+  applyDeadline,
+  applyOpen,
+  boilerlinkLive,
+  club,
+  links,
+  membership,
+  partners,
+  tracks,
+} from '../config/site'
 
-// Fall 2026 cycle closed Sept 4 (see `applyOpen` in config/site.js).
-// These steps describe how that closed cycle ran; update `when` on
-// step 01 and reopen the flow (applyOpen/applyDeadline) once a new
-// cycle's dates and form are confirmed.
-const steps = [
+const fallPartners = partners.filter(p => p.season === 'Fall 2026').map(p => p.name)
+const fallPartnerList = `${fallPartners.slice(0, -1).join(', ')}, and ${fallPartners.at(-1)}`
+
+// Closed-state "why join": only facts that are already on the site.
+const whyJoin = [
   {
-    step: '01',
-    title: 'Submit the application',
-    when: 'Closed',
-    detail:
-      'A short written application with your resume. All majors welcome, and no finance background required.',
+    title: 'Partner projects',
+    body: `${club.projectTeams} project teams across ${fallPartners.length} partners this fall: ${fallPartnerList}.`,
   },
   {
-    step: '02',
-    title: 'Call-out session',
-    when: 'Aug 31 or Sept 2',
-    detail:
-      'Two sessions, same content. Monday, August 31 at 6:00 PM in KRAN G012, or Wednesday, September 2 at 6:30 PM in RAWL 2079.',
+    title: 'A path up',
+    body: 'Analyst, Associate, Senior Associate, and a path onto the Partner-level Executive Board.',
   },
   {
-    step: '03',
-    title: 'Interview',
-    when: 'After applications close',
-    detail:
-      'A conversation with members of the Executive Board. We care how you think, not what you already know.',
+    title: 'VCIC',
+    body: "VCPurdue represents Purdue at VCIC, the world's largest venture capital competition.",
   },
   {
-    step: '04',
-    title: 'Onboarding',
-    when: 'Before projects kick off',
-    detail:
-      'New Analysts join a project team and start the curriculum right away — term sheets, cap tables, and sourcing from the ground up.',
+    title: 'Any major',
+    body: `All majors welcome, and no finance background required. ${membership.outsideBusiness} of our members come from outside the business school.`,
   },
 ]
 
+// Kept to answers that are confirmed. Time commitment and regular meeting
+// time were removed until the club confirms them (see TODO in site.js).
 const faqs = [
   {
     q: 'Do I need a finance or business background?',
-    a: 'No. We recruit from every major on campus. Our onboarding curriculum covers term sheets, cap tables, and sourcing from the ground up. What matters is curiosity and follow-through.',
-  },
-  {
-    q: 'What is the time commitment?',
-    a: 'A weekly club session plus project work with your team. Expect a few hours a week — more during a live engagement push.',
+    a: `No. We recruit from every major on campus, and ${membership.outsideBusiness} of our members come from outside the business school. We look for curiosity and follow-through.`,
   },
   {
     q: 'What track will I join?',
     a: 'New members join as Analysts. Analysts who take on more scope move to Associate, then Senior Associate. Senior Associates have a path onto the Partner-level Executive Board.',
   },
   {
-    q: 'Do members actually work on real deals?',
-    a: 'Yes. Last spring, Charmides Capital gave us their thesis and asked which companies fit it. Our members ranked the market and presented to their investors. This fall we are running three engagements.',
-  },
-  {
-    q: 'Are applications still open?',
-    a: 'No. Applications for Fall 2026 closed Friday, September 4.',
-  },
-  {
-    q: 'When does the club meet?',
-    a: 'General club sessions run Thursdays, 6:30 to 7:30 PM.',
+    q: 'Do members work on real deals?',
+    a: `Yes. Last spring, Charmides Capital gave us their thesis and asked which companies fit it. Our members ranked the market and presented to their investors. This fall, ${club.projectTeams} project teams are working with ${fallPartners.length} partners.`,
   },
 ]
 
-export default function Apply() {
+function Questions() {
   return (
     <>
-      <section className="bg-ink py-24 px-6 text-center">
-        <div className="max-w-3xl mx-auto">
-          <p className="text-gold text-sm italic mb-4 tracking-wide">Recruiting</p>
-          <h1 className="font-serif text-5xl md:text-6xl font-bold text-white mb-6">
-            Join VCPurdue
-          </h1>
-          <p className="text-white/55 text-lg leading-relaxed mb-6">
-            Applications for Fall 2026 are closed.
-          </p>
-          {applyDeadline && (
-            <p className="text-gold text-sm font-semibold tracking-wide uppercase mb-10">
-              {applyDeadline}
-            </p>
-          )}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <ApplyButton variant="gold" />
-            {boilerlinkLive && (
-              <a
-                href={links.boilerlink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block px-8 py-3.5 border border-gold text-gold text-sm font-semibold tracking-wide hover:bg-gold/10 transition-colors duration-200"
-              >
-                View on BoilerLink
-              </a>
-            )}
+      <div className="space-y-10">
+        {faqs.map((f, i) => (
+          <Reveal key={f.q} delay={stagger(i)}>
+            <h3 className="type-h3 mb-3 text-xl">{f.q}</h3>
+            <p className="leading-relaxed text-ink/80">{f.a}</p>
+          </Reveal>
+        ))}
+      </div>
+
+      <Reveal className="mt-16 border-t border-gold/40 pt-10">
+        <p className="mb-3 text-ink/80">Still have questions? Reach out — we&rsquo;re happy to talk.</p>
+        <a
+          href={`mailto:${links.email}`}
+          className="font-display text-xl font-bold underline decoration-gold decoration-2 underline-offset-4 transition-colors hover:text-ink/70"
+        >
+          {links.email}
+        </a>
+      </Reveal>
+    </>
+  )
+}
+
+function ClosedView() {
+  return (
+    <>
+      {/* ---------- HERO ---------- */}
+      <section className="bg-ink px-6 text-white">
+        <div className="mx-auto grid max-w-6xl items-center gap-12 pb-14 pt-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:pb-20 lg:pt-20">
+          <div>
+            <Reveal>
+              <Eyebrow dark className="mb-5">
+                Recruitment complete
+              </Eyebrow>
+            </Reveal>
+            <Reveal delay={100}>
+              <h1 className="type-hero mb-6">Applications are closed.</h1>
+            </Reveal>
+            <Reveal delay={200}>
+              <p className="mb-9 max-w-xl text-lg leading-relaxed text-white/75">
+                Thank you for your interest in VCPurdue. Next semester&rsquo;s recruitment dates
+                will be posted here and on our{' '}
+                <a
+                  href={links.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white underline decoration-gold decoration-2 underline-offset-4 transition-colors hover:text-gold-light"
+                >
+                  Instagram
+                </a>{' '}
+                and{' '}
+                <a
+                  href={links.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white underline decoration-gold decoration-2 underline-offset-4 transition-colors hover:text-gold-light"
+                >
+                  LinkedIn
+                </a>
+                .
+              </p>
+            </Reveal>
+            <Reveal delay={300}>
+              <div className="flex flex-wrap gap-4">
+                <Button to="/venture-capital" variant="gold">
+                  Learn how VC works
+                </Button>
+                <Button href={links.instagram} variant="outlineGold">
+                  Follow for dates
+                </Button>
+              </div>
+            </Reveal>
           </div>
+
+          <Reveal delay={450} className="relative">
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 hidden translate-x-3 translate-y-3 border border-gold/60 lg:block"
+            />
+            <div className="relative aspect-[4/5] overflow-hidden bg-white/5">
+              <img
+                src={heroPhoto}
+                alt="VCPurdue's Fall 2026 class gathered on a staircase"
+                className="h-full w-full object-cover"
+                style={{ objectPosition: '50% 70%' }}
+                fetchPriority="high"
+              />
+              <div aria-hidden="true" className="absolute inset-0 bg-ink/35" />
+            </div>
+          </Reveal>
+        </div>
+
+        <div className="mx-auto max-w-6xl">
+          <FactStrip
+            items={[
+              { label: 'Application status', value: 'Closed for Fall 2026' },
+              { label: 'Next semester', value: 'Dates to be announced' },
+              { label: 'Members', value: club.memberCount, note: club.memberLabel },
+            ]}
+          />
         </div>
       </section>
 
-      {/* ---------- PROCESS ---------- */}
-      <section className="bg-ivory py-24 px-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="font-serif text-4xl font-bold text-ink mb-4">
-              How recruiting works
-            </h2>
-            <div className="w-8 h-px bg-gold mx-auto" />
-          </div>
-
-          <div className="space-y-px bg-gold/20 border border-gold/20">
-            {steps.map(s => (
-              <div key={s.step} className="bg-ivory p-8 md:flex md:gap-8">
-                <div className="md:w-32 shrink-0 mb-3 md:mb-0">
-                  <p className="font-serif text-gold text-2xl font-bold">{s.step}</p>
+      {/* ---------- WHY JOIN ---------- */}
+      <section className="bg-ivory px-6 py-24">
+        <div className="mx-auto max-w-4xl">
+          <Reveal>
+            <Eyebrow className="mb-5">Why join</Eyebrow>
+          </Reveal>
+          <Reveal delay={80}>
+            <h2 className="type-h2 mb-12">What members get.</h2>
+          </Reveal>
+          <ol className="space-y-3">
+            {whyJoin.map((item, i) => (
+              <Reveal as="li" key={item.title} delay={stagger(i)} className="flex bg-ink text-white">
+                <span className="font-display flex w-16 shrink-0 items-center justify-center bg-gold text-xl font-bold text-ink sm:w-24 sm:text-2xl">
+                  0{i + 1}
+                </span>
+                <div className="px-5 py-6 sm:px-8">
+                  <p className="type-h3 mb-1.5">{item.title}</p>
+                  <p className="leading-relaxed text-white/75">{item.body}</p>
                 </div>
-                <div>
-                  <div className="flex flex-wrap items-baseline gap-x-4 mb-2">
-                    <h3 className="font-serif text-xl font-semibold text-ink">{s.title}</h3>
-                    <span className="text-gold text-xs tracking-wide uppercase">
-                      {s.when}
-                    </span>
-                  </div>
-                  <p className="text-ink/60 text-sm leading-relaxed">{s.detail}</p>
-                </div>
-              </div>
+              </Reveal>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
-      {/* ---------- TRACKS ---------- */}
-      <section className="bg-ink py-24 px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="font-serif text-4xl font-bold text-white mb-4">
-              Where you can go
-            </h2>
-            <div className="w-8 h-px bg-gold mx-auto" />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {tracks.map(t => (
-              <div
-                key={t.tier}
-                className="border border-gold/25 p-8 hover:border-gold/60 transition-colors duration-300"
-              >
-                <p className="text-gold text-xs uppercase tracking-widest mb-3">{t.tag}</p>
-                <h3 className="font-serif text-2xl font-semibold text-white mb-4">
-                  {t.tier}
-                </h3>
-                <p className="text-white/50 text-sm leading-relaxed mb-6">{t.description}</p>
-                <ul className="space-y-2">
-                  {t.points.map(pt => (
-                    <li key={pt} className="text-white/40 text-sm pl-4 relative leading-relaxed">
-                      <span className="absolute left-0 text-gold">→</span>
-                      {pt}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ---------- FAQ ---------- */}
-      <section className="bg-ivory py-24 px-6">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="font-serif text-4xl font-bold text-ink mb-4">
-              Frequently asked
-            </h2>
-            <div className="w-8 h-px bg-gold mx-auto" />
-          </div>
-
-          <div className="space-y-10">
-            {faqs.map(f => (
-              <div key={f.q}>
-                <h3 className="font-serif text-lg font-semibold text-ink mb-3">{f.q}</h3>
-                <p className="text-ink/60 text-sm leading-relaxed">{f.a}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-16 pt-10 border-t border-gold/25 text-center">
-            <p className="text-ink/60 text-sm mb-6">
-              Still have questions? Reach out — we're happy to talk.
-            </p>
-            <a
-              href={`mailto:${links.email}`}
-              className="font-serif text-xl text-gold hover:underline"
-            >
-              {links.email}
-            </a>
-          </div>
+      {/* ---------- QUESTIONS ---------- */}
+      <section className="border-t border-gold/20 bg-ivory px-6 pb-24 pt-20">
+        <div className="mx-auto max-w-3xl">
+          <Reveal>
+            <Eyebrow className="mb-5">Questions</Eyebrow>
+          </Reveal>
+          <Reveal delay={80}>
+            <h2 className="type-h2 mb-12">Frequently asked.</h2>
+          </Reveal>
+          <Questions />
         </div>
       </section>
     </>
   )
+}
+
+// ---------------------------------------------------------------------
+// OPEN STATE — shown only while `applyOpen` is true in config/site.js.
+// TODO before flipping applyOpen: confirm the real recruiting dates and
+// update `openSteps`, then set `applyDeadline` in site.js. Nothing here
+// states a date on purpose.
+// ---------------------------------------------------------------------
+const openSteps = [
+  {
+    step: '01',
+    title: 'Submit the application',
+    when: 'Open now',
+    detail:
+      'A short written application with your resume. All majors welcome, and no finance background required.',
+  },
+  {
+    step: '02',
+    title: 'Call-out session',
+    when: 'Dates to be announced',
+    detail: 'Meet the Partners, hear how the club runs, and get the details on the semester’s project teams.',
+  },
+  {
+    step: '03',
+    title: 'Interview',
+    when: 'After applications close',
+    detail:
+      'A conversation with members of the Executive Board. We care how you think more than what you already know.',
+  },
+  {
+    step: '04',
+    title: 'Onboarding',
+    when: 'Before projects kick off',
+    detail:
+      'New Analysts join a project team before projects kick off.',
+  },
+]
+
+function OpenView() {
+  return (
+    <>
+      <section className="bg-ink px-6 py-24 text-center text-white">
+        <div className="mx-auto max-w-3xl">
+          <Reveal>
+            <Eyebrow dark center className="mb-5">
+              Recruiting
+            </Eyebrow>
+          </Reveal>
+          <Reveal delay={80}>
+            <h1 className="type-hero mb-6">Join VCPurdue</h1>
+          </Reveal>
+          <Reveal delay={160}>
+            <p className="mb-6 text-lg leading-relaxed text-white/75">
+              Applications are open. Bring curiosity, a strong work ethic, and an opinion about a
+              company you wish existed.
+            </p>
+          </Reveal>
+          {applyDeadline && (
+            <p className="mb-10 text-sm font-semibold uppercase tracking-[0.18em] text-gold">
+              {applyDeadline}
+            </p>
+          )}
+          <Reveal delay={240}>
+            <div className="flex flex-col justify-center gap-4 sm:flex-row">
+              <ApplyButton variant="gold" />
+              {boilerlinkLive && (
+                <Button href={links.boilerlink} variant="outlineGold">
+                  View on BoilerLink
+                </Button>
+              )}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="bg-ivory px-6 py-24">
+        <div className="mx-auto max-w-4xl">
+          <Reveal>
+            <Eyebrow className="mb-5">The process</Eyebrow>
+          </Reveal>
+          <Reveal delay={80}>
+            <h2 className="type-h2 mb-12">How recruiting works.</h2>
+          </Reveal>
+          <ol className="space-y-3">
+            {openSteps.map((s, i) => (
+              <Reveal as="li" key={s.step} delay={stagger(i)} className="flex bg-ink text-white">
+                <span className="font-display flex w-16 shrink-0 items-center justify-center bg-gold text-xl font-bold text-ink sm:w-24 sm:text-2xl">
+                  {s.step}
+                </span>
+                <div className="px-5 py-6 sm:px-8">
+                  <p className="type-h3 mb-1">{s.title}</p>
+                  <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-gold">
+                    {s.when}
+                  </p>
+                  <p className="leading-relaxed text-white/75">{s.detail}</p>
+                </div>
+              </Reveal>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="bg-ink px-6 py-24 text-white">
+        <div className="mx-auto max-w-5xl">
+          <Reveal>
+            <Eyebrow dark className="mb-5">
+              Where you can go
+            </Eyebrow>
+          </Reveal>
+          <Reveal delay={80}>
+            <h2 className="type-h2 mb-12">The path.</h2>
+          </Reveal>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {tracks.map((t, i) => (
+              <Reveal
+                key={t.tier}
+                delay={stagger(i)}
+                className="border border-l-2 border-white/15 border-l-gold bg-white/[0.04] p-8"
+              >
+                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+                  {t.tag}
+                </p>
+                <h3 className="type-h3 mb-4">{t.tier}</h3>
+                <p className="text-sm leading-relaxed text-white/75">{t.description}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-ivory px-6 py-24">
+        <div className="mx-auto max-w-3xl">
+          <Reveal>
+            <Eyebrow className="mb-5">Questions</Eyebrow>
+          </Reveal>
+          <Reveal delay={80}>
+            <h2 className="type-h2 mb-12">Frequently asked.</h2>
+          </Reveal>
+          <Questions />
+        </div>
+      </section>
+    </>
+  )
+}
+
+export default function Apply() {
+  return applyOpen ? <OpenView /> : <ClosedView />
 }

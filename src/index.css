@@ -6,18 +6,90 @@
   --color-gold-light: #D4B66A;
   --color-ink: #0A0A0A;
 
-  --font-sans: 'Inter', system-ui, sans-serif;
-  --font-serif: 'Playfair Display', Georgia, serif;
+  /* Body, nav, buttons. */
+  --font-sans: 'Lato', system-ui, sans-serif;
+
+  /* Headings and big numerals. To change the heading font, change this
+     token, the --font-serif alias below, and the Google Fonts link in
+     index.html. */
+  --font-display: 'Lora', Georgia, serif;
+
+  /* Legacy alias: older markup uses `font-serif` for headings. It points
+     at the display font so those pages follow the token above without
+     per-component edits. Keep it identical to --font-display. */
+  --font-serif: 'Lora', Georgia, serif;
+
+  /* The "VCPurdue" wordmark (Navbar + Footer). Same family as headings. */
+  --font-wordmark: 'Lora', Georgia, serif;
 }
 
 html {
   scroll-behavior: smooth;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 body {
   font-family: var(--font-sans);
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.6;
   background-color: #F5EEDD;
   color: #0A0A0A;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@layer base {
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+  }
+}
+
+/* Type scale. Hero ~64px desktop / 36px mobile; section headings
+   44px desktop / 36px mobile. */
+@layer components {
+  .type-hero {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2.25rem, 5.4vw, 3.875rem);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+  }
+
+  .type-h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2.25rem, 3.4vw, 2.75rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .type-h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+  }
+
+  .type-numeral {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
 }

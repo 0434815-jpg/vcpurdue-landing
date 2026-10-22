@@ -1,127 +1,298 @@
-import { Link } from 'react-router-dom'
-import { featuredProject, fallProjects } from '../config/site'
+import { Fragment } from 'react'
+import Button from '../components/Button'
+import Eyebrow from '../components/Eyebrow'
+import LinkCard from '../components/LinkCard'
+import Reveal from '../components/Reveal'
+import { stagger } from '../components/stagger'
+import { StatStack } from '../components/StatStrip'
+import { ArrowUpRight } from '../components/Icons'
+import SidePhoto from '../components/SidePhoto'
+import worksession from '../assets/photos/worksession.jpg'
+import presenting from '../assets/photos/presenting.jpg'
+import { featuredProject, fallProjects, partners } from '../config/site'
+
+// The funnel narrows left to right: each stage is a little shorter than the
+// last on desktop. "Top picks" shows a numeral only if the club has
+// confirmed a total (`companiesRecommended` in site.js).
+function buildFunnel(p) {
+  return [
+    { numeral: '30+', label: 'Analysts', size: 'md:min-h-[11rem] py-6' },
+    { numeral: '4', label: 'Project teams', size: 'md:min-h-[9.5rem] py-6' },
+    {
+      numeral: p.companiesRecommended || '',
+      title: 'Top picks',
+      label: p.companiesRecommended ? 'Companies recommended' : "Each team's top picks",
+      size: 'md:min-h-[8rem] py-6',
+    },
+    {
+      title: 'Presented',
+      label: "Final rankings presented to Charmides' investors",
+      size: 'md:min-h-[6.5rem] py-6',
+    },
+  ]
+}
+
+const partnerByName = Object.fromEntries(partners.map(p => [p.name, p]))
 
 export default function Projects() {
   const p = featuredProject
+  const spring = partnerByName[p.partner]
+  const funnel = buildFunnel(p)
 
   return (
     <>
-      <section className="bg-ink py-24 px-6 text-center">
-        <div className="max-w-3xl mx-auto">
-          <p className="text-gold text-sm italic mb-4 tracking-wide">Our Work</p>
-          <h1 className="font-serif text-5xl md:text-6xl font-bold text-white mb-6">
-            We work for real funds.
-          </h1>
-          <p className="text-white/55 text-lg leading-relaxed">
-            Our members run research engagements for working venture funds and present
-            the findings to their investors.
-          </p>
+      <section className="bg-ink px-6 py-24 text-white">
+        <div className="mx-auto grid max-w-5xl items-center gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+          <div>
+            <Reveal>
+              <Eyebrow dark className="mb-5">
+                Our work
+              </Eyebrow>
+            </Reveal>
+            <Reveal delay={80}>
+              <h1 className="type-hero mb-6 max-w-3xl">Real work with real partners.</h1>
+            </Reveal>
+            <Reveal delay={160}>
+              <p className="max-w-2xl text-lg leading-relaxed text-white/75">
+                Six project teams across four partners this fall.
+              </p>
+            </Reveal>
+          </div>
+          <SidePhoto
+            src={worksession}
+            ratio={1400 / 1050}
+            alt="VCPurdue members working a research session around a table"
+            caption="A VCPurdue working session."
+            eager
+          />
         </div>
       </section>
 
-      {/* ---------- FEATURED ENGAGEMENT ---------- */}
-      <section className="bg-ivory py-24 px-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="text-gold text-sm italic mb-4 tracking-wide">
-              {p.term} · {p.partner}
-            </p>
-            <h2 className="font-serif text-4xl md:text-5xl font-bold text-ink mb-6">
-              {p.headline}
-            </h2>
-            <p className="text-ink/65 text-lg leading-relaxed max-w-2xl mx-auto">
-              {p.summary}
-            </p>
+      {/* ---------- FALL 2026 ---------- */}
+      <section className="bg-ivory px-6 py-24">
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-12">
+            <Reveal>
+              <Eyebrow className="mb-5">Fall 2026</Eyebrow>
+            </Reveal>
+            <Reveal delay={80}>
+              <h2 className="type-h2 mb-4">This semester&rsquo;s teams.</h2>
+            </Reveal>
+            <Reveal delay={160}>
+              <p className="max-w-xl leading-relaxed text-ink/75">
+                Every member joins one of the project teams. Each card links to the partner&rsquo;s
+                site.
+              </p>
+            </Reveal>
           </div>
 
-          <div className="border-t border-b border-gold/25 py-8 mb-16 text-center">
-            <p className="font-serif text-xl text-ink">{p.team}</p>
+          <div className="grid gap-6 md:grid-cols-2">
+            {fallProjects.map((fp, i) => {
+              const partner = partnerByName[fp.partner]
+              return (
+                <LinkCard
+                  key={fp.partner}
+                  href={partner.href}
+                  label={fp.partner}
+                  delay={stagger(i)}
+                  className="p-8 pr-14 md:p-10 md:pr-16"
+                >
+                  <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-ink/70">
+                    {partner.role}
+                  </p>
+                  <h3 className="type-h3 mb-2">{fp.partner}</h3>
+                  <p className="mb-6 leading-relaxed text-ink/75">{partner.tagline}</p>
+
+                  <div className="mb-4 flex items-baseline gap-3 border-t border-ink/10 pt-5">
+                    <span className="type-numeral text-4xl">{fp.teams}</span>
+                    <span className="text-xs font-semibold uppercase tracking-[0.18em] text-ink/70">
+                      {fp.jointWith ? 'joint team' : fp.teams === 1 ? 'team' : 'teams'}
+                    </span>
+                  </div>
+
+                  <ul className="space-y-2">
+                    {fp.work.map(w => (
+                      <li key={w} className="flex items-start gap-3 text-sm leading-relaxed text-ink/80">
+                        <span aria-hidden="true" className="mt-2.5 h-px w-3 shrink-0 bg-gold" />
+                        {w}
+                      </li>
+                    ))}
+                  </ul>
+                  {fp.jointWith && (
+                    <p className="mt-4 text-sm text-ink/65">Joint team with {fp.jointWith}.</p>
+                  )}
+                </LinkCard>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------- SPRING 2026 CASE STUDY ---------- */}
+      <section className="bg-ink px-6 py-24 text-white">
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-16 max-w-3xl">
+            <Reveal>
+              <Eyebrow dark className="mb-5">
+                {p.term} · {p.role}
+              </Eyebrow>
+            </Reveal>
+            <Reveal delay={80}>
+              <h2 className="type-h2 mb-6">{p.partner}</h2>
+            </Reveal>
+            <Reveal delay={160}>
+              <p className="mb-5 text-lg leading-relaxed text-white/75">{p.about}</p>
+            </Reveal>
+            <Reveal delay={200}>
+              <a
+                href={spring.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-gold underline decoration-gold/60 underline-offset-8 transition-colors duration-200 hover:text-gold-light"
+              >
+                Visit {p.partner} <ArrowUpRight />
+                <span className="sr-only">(opens in a new tab)</span>
+              </a>
+            </Reveal>
           </div>
 
-          {/* Thesis */}
-          <div className="mb-16">
-            <h3 className="font-serif text-2xl font-semibold text-ink mb-3">
-              Their thesis was sharp
-            </h3>
-            <div className="w-8 h-px bg-gold mb-8" />
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-gold/20 border border-gold/20">
-              {p.thesis.map(t => (
-                <div key={t} className="bg-ivory px-7 py-6">
-                  <p className="text-ink text-sm font-medium">{t}</p>
-                </div>
+          <Reveal className="mb-20 border-l-2 border-gold pl-6 sm:pl-8">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+              The brief
+            </p>
+            <p className="font-display max-w-3xl text-2xl font-semibold leading-snug sm:text-3xl">
+              {p.brief}
+            </p>
+          </Reveal>
+
+          {/* Thesis + numbers */}
+          <div className="mb-24 grid items-start gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+            <Reveal className="border border-gold/50">
+              <p className="border-b border-gold/50 px-6 py-5 text-xs font-semibold uppercase tracking-[0.2em] text-gold sm:px-8">
+                The thesis
+              </p>
+              <ul>
+                {p.thesis.map((t, i) => (
+                  <li
+                    key={t}
+                    className={`font-display px-6 py-6 text-xl font-bold sm:px-8 sm:text-2xl ${
+                      i > 0 ? 'border-t border-white/15' : ''
+                    }`}
+                  >
+                    {t}
+                  </li>
+                ))}
+              </ul>
+              <p className="border-t border-gold/50 px-6 py-4 text-xs uppercase tracking-[0.18em] text-white/60 sm:px-8">
+                The screening lens we used
+              </p>
+            </Reveal>
+            <StatStack items={p.stats} />
+          </div>
+
+          {/* Funnel */}
+          <Reveal>
+            <Eyebrow dark className="mb-8">
+              From the class to the shortlist
+            </Eyebrow>
+          </Reveal>
+          <Reveal className="mb-24">
+            <ol className="flex flex-col items-stretch md:flex-row md:items-center">
+              {funnel.map((st, i) => (
+                <Fragment key={st.label}>
+                  {i > 0 && (
+                    <li
+                      aria-hidden="true"
+                      className="mx-auto h-8 w-px shrink-0 bg-gold/60 md:mx-0 md:h-px md:w-8"
+                    />
+                  )}
+                  <li
+                    className={`flex flex-1 flex-col justify-center border border-gold/50 px-6 ${st.size}`}
+                  >
+                    {st.numeral ? (
+                      <p className="type-numeral text-5xl text-gold sm:text-6xl">{st.numeral}</p>
+                    ) : (
+                      <p className="font-display text-2xl font-bold text-gold-light sm:text-3xl">
+                        {st.title}
+                      </p>
+                    )}
+                    <p className="mt-3 text-xs font-semibold uppercase leading-snug tracking-[0.16em] text-white/75">
+                      {st.label}
+                    </p>
+                  </li>
+                </Fragment>
               ))}
-            </div>
-          </div>
+            </ol>
+          </Reveal>
 
-          {/* Deliverable */}
-          <div className="mb-16">
-            <h3 className="font-serif text-2xl font-semibold text-ink mb-3">Our mandate</h3>
-            <div className="w-8 h-px bg-gold mb-6" />
-            <p className="text-ink/65 leading-relaxed">{p.deliverable}</p>
+          {/* What we delivered + photo */}
+          <div className="mb-24 grid items-start gap-12 lg:grid-cols-[1.25fr_0.75fr] lg:gap-16">
+            <div>
+              <Reveal>
+                <Eyebrow dark className="mb-8">
+                  What we delivered
+                </Eyebrow>
+              </Reveal>
+              <ol className="space-y-3">
+                {p.delivered.map((d, i) => (
+                  <Reveal as="li" key={d} delay={stagger(i)} className="flex bg-white/[0.04]">
+                    <span className="font-display flex w-16 shrink-0 items-center justify-center bg-gold text-xl font-bold text-ink">
+                      0{i + 1}
+                    </span>
+                    <p className="px-6 py-6 text-lg leading-relaxed text-white/90">{d}</p>
+                  </Reveal>
+                ))}
+              </ol>
+            </div>
+            <SidePhoto
+              src={presenting}
+              ratio={1045 / 1400}
+              alt="VCPurdue executive board presenting to members in a classroom"
+              caption="VCPurdue's executive board presenting to members."
+              className="mx-auto w-full max-w-[19rem]"
+            />
           </div>
 
           {/* Timeline */}
-          <div>
-            <h3 className="font-serif text-2xl font-semibold text-ink mb-3">
-              Four months, one roadmap
-            </h3>
-            <div className="w-8 h-px bg-gold mb-8" />
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {p.timeline.map((t, i) => (
-                <div key={t.month} className="border-l border-gold/30 pl-5">
-                  <p className="font-serif text-gold text-sm mb-2">
-                    0{i + 1}
-                  </p>
-                  <p className="font-serif text-ink font-semibold mb-1">{t.month}</p>
-                  <p className="text-ink/50 text-sm">{t.milestone}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ---------- CURRENT PROJECTS ---------- */}
-      <section className="bg-ink py-24 px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="text-gold text-sm italic mb-4 tracking-wide">Fall 2026</p>
-            <h2 className="font-serif text-4xl md:text-5xl font-bold text-white mb-6">
-              Three engagements this semester.
-            </h2>
-            <p className="text-white/50 leading-relaxed max-w-xl mx-auto">
-              Every member joins one of the three project teams.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {fallProjects.map(fp => (
-              <div
-                key={fp.partner}
-                className="border border-gold/25 p-8 hover:border-gold/60 transition-colors duration-300"
-              >
-                <h3 className="font-serif text-xl font-semibold text-white mb-4">
-                  {fp.partner}
-                </h3>
-                <div className="w-8 h-px bg-gold mb-5" />
-                <p className="text-white/50 text-sm leading-relaxed">{fp.focus}</p>
-              </div>
+          <Reveal>
+            <Eyebrow dark className="mb-10">
+              Four months
+            </Eyebrow>
+          </Reveal>
+          <ol className="mb-20 grid gap-10 border-l border-gold/60 pl-8 md:grid-cols-4 md:gap-8 md:border-l-0 md:border-t md:pl-0 md:pt-8">
+            {p.timeline.map((t, i) => (
+              <Reveal as="li" key={t.when} delay={stagger(i)} className="relative">
+                <span
+                  aria-hidden="true"
+                  className="absolute -left-[2.3rem] top-1 h-2.5 w-2.5 rounded-full bg-gold md:-top-[2.3rem] md:left-0"
+                />
+                <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+                  {t.when}
+                </p>
+                <p className="leading-relaxed text-white/85">{t.what}</p>
+              </Reveal>
             ))}
-          </div>
+          </ol>
+
+          <Reveal>
+            <p className="border-t border-white/15 pt-6 text-sm text-white/60">{p.note}</p>
+          </Reveal>
         </div>
       </section>
 
-      <section className="bg-gold py-24 px-6 text-center">
-        <div className="max-w-2xl mx-auto">
-          <h2 className="font-serif text-3xl md:text-4xl font-bold text-ink mb-6">
-            Want to work on one of these?
-          </h2>
-          <Link
-            to="/apply"
-            className="inline-block px-8 py-3.5 bg-ink text-white text-sm font-semibold tracking-wide hover:bg-ink/80 transition-colors duration-200"
-          >
-            How Recruiting Works
-          </Link>
+      {/* ---------- CTA ---------- */}
+      <section className="bg-gold px-6 py-24 text-center">
+        <div className="mx-auto max-w-2xl">
+          <Reveal>
+            <h2 className="type-h2 mb-8 text-ink">Want to work on one of these?</h2>
+          </Reveal>
+          <Reveal delay={100}>
+            <div className="flex flex-col justify-center gap-4 sm:flex-row">
+              <Button to="/apply" variant="ink">
+                Recruiting
+              </Button>
+            </div>
+          </Reveal>
         </div>
       </section>
     </>
