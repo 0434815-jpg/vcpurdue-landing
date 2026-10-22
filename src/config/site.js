@@ -228,7 +228,8 @@ export const featuredProject = {
   // From charmidescapital.com (checked Oct 22, 2026): "a venture capital fund
   // that co-invests with institutional investors in Indiana and the Midwest",
   // investing in early-stage B2B software companies with high growth
-  // potential. The site does not say "seed" or "Series A".
+  // potential. "Seed and Series A" appears only in the site's meta
+  // description, not the visible copy, so we say "early-stage".
   about:
     'An Indiana venture capital fund that co-invests with institutional investors across the Midwest. It backs early-stage B2B software companies with high growth potential.',
   brief:
